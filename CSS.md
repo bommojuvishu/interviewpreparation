@@ -6,6 +6,8 @@
 0.5rem = 8px
 2rem = 32px
 
+1cm = 37.8px = 25.2/64in
+
 # Type fo boxes
 
 In CSS, there are several types of boxes that play crucial roles in layout and styling. Understanding these different box types helps in designing and debugging web pages effectively. Here are the primary types of boxes in CSS:
@@ -510,6 +512,152 @@ select the immediate children
 .container > * {
 	flex-basis : 100px
 }
+```
+
+## Overflow
+
+In CSS, the overflow property controls how content that exceeds the dimensions of its container is handled. It has several values:
+
+1. overflow: visible; (Default)
+
+   Content overflows the container and is fully visible.
+   Example:
+
+```css
+.box {
+  width: 100px;
+  height: 100px;
+  overflow: visible;
+}
+```
+
+2. overflow: hidden;
+
+   Hides the overflowing content without scrollbars.
+
+```css
+.box {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+}
+```
+
+3. overflow: scroll;
+
+   Always shows scrollbars (both horizontal and vertical), even if content fits.
+
+```css
+.box {
+  width: 100px;
+  height: 100px;
+  overflow: scroll;
+}
+```
+
+4. overflow: auto;
+
+   Adds scrollbars only if the content overflows.
+   Example:
+
+```css
+.box {
+  width: 100px;
+  height: 100px;
+  overflow: auto;
+}
+```
+
+5. overflow-x and overflow-y
+
+   Control horizontal (overflow-x) and vertical (overflow-y) overflow separately.
+
+```css
+.box {
+  width: 100px;
+  height: 100px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+```
+
+## hyperlink
+
+This order is important because link styles build on one another. For example, the styles in the first rule will apply to all the subsequent ones. When a link is activated, it's usually also hovered over. If you put these in the wrong order, and you're changing the same properties in each ruleset, things won't work as you expect. To remember the order, you could try using a mnemonic like LoVe Fears HAte.
+
+```css
+a {
+}
+
+a:link {
+}
+
+a:visited {
+}
+
+a:focus {
+}
+
+a:hover {
+}
+
+a:active {
+}
+```
+
+## font-family
+
+three ways fonts can be imported
+
+- normal way as below
+- download and create cutom font and import using the @font-face
+- online font service (like google )
+
+```css
+p {
+  font-family: Helvetica, "Trebuchet MS", Verdana, sans-serif;
+}
+```
+
+safe fonts
+https://www.cssfontstack.com/
+
+- WOFF/WOFF2 (Web Open Font Format versions 1 and 2)
+- EOT (Embedded Open Type), TTF (TrueType Font)
+
+### custom fonts
+
+process is mentioned below
+https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Text_styling/Web_fonts#web_fonts
+
+```css
+@font-face {
+  font-family: "myFont";
+  src: url("myFont.woff2");
+}
+```
+
+## Grid
+
+```css
+.container {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 20px;
+}
+```
+
+To create gaps between tracks, we use the properties
+
+- column-gap for gaps between columns
+- row-gap for gaps between rows
+- gap as a shorthand for both
+
+## Viewport meta tag
+
+```css
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+
 ```
 
 # Bootstrap
