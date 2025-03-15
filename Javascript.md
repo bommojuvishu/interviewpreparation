@@ -335,26 +335,135 @@ promise
   });
 ```
 
+## Async await
+
+The await keyword can only be used inside an async function.
+The await keyword makes the function pause the execution and wait for a resolved promise before it continues:
+
+```javascript
+const fun1 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    console.log("hello  1second ");
+    resolve("status");
+  }, 1000);
+});
+
+//  promise example
+fun1
+  .then((data) => console.log("success", data))
+  .catch((error) => console.log("error:", error));
+
+async function fun2() {
+  const resp = await fun1();
+  console.log("ASYNC", resp);
+  return resp;
+}
+
+console.log();
+// async await example
+fun2().then((data) => console.log("success :", data));
+```
+
+## Types of Promises
+
 A Promise is in one of these states:
 pending:
 fulfilled:
 rejected:
-The Promise class offers four static methods to facilitate async task concurrency
 
-- Promise.all()
-  Fulfills when all of the promises fulfill; rejects when any of the promises rejects.
-  Ex: 2 promises fulfilled and one rejected , then it won't executes the fulfilled , it just short circuit and throws error
+## 1️⃣ `Promise.all()` – **Wait for all promises (fail if one fails)**
 
-- Promise.allSettled()
-  Fulfills when all promises settle, ignores the rejected promises
-  Ex: 2 promises fulfilled and one rejected , display all the promises
+✅ Resolves when **all** promises succeed.  
+❌ Rejects immediately if **any** promise fails.
 
-- Promise.any()
-  Fulfills when any of the promises fulfills; rejects when all of the promises reject.similar to race , but did not throw error , display the fast promise.
+```js
+const p1 = Promise.resolve("A");
+const p2 = Promise.resolve("B");
+const p3 = Promise.reject("Error!");
 
-- Promise.race()
-  Settles when any of the promises settles. In other words, fulfills when any of the promises fulfills; rejects when any of the promises rejects.
-  Ex : two promises fast and slow , it always returns the fast promise
+Promise.all([p1, p2, p3])
+  .then(console.log) // ❌ Won't execute
+  .catch(console.error); // 🚨 "Error!"
+```
+
+🔹 **Use case**: Fetching **multiple APIs** where all responses are required.
+
+## 2️⃣ `Promise.allSettled()` – **Wait for all, never fail**
+
+✅ Always resolves, even if some promises fail.  
+🔹 Returns **both fulfilled and rejected results**.
+
+```
+const p1 = Promise.resolve("A");
+const p2 = Promise.reject("Error!");
+const p3 = Promise.resolve("C");
+
+Promise.allSettled([p1, p2, p3]).then(console.log);
+
+//output
+[
+  { status: "fulfilled", value: "A" },
+  { status: "rejected", reason: "Error!" },
+  { status: "fulfilled", value: "C" }
+]
+
+```
+
+🔹 **Use case**: Running **multiple independent tasks** and handling errors separately.
+
+## 3️⃣ `Promise.any()` – **First success wins**
+
+✅ Resolves with **first fulfilled promise**.  
+❌ Rejects **only if all** promises fail (`AggregateError`).
+
+```js
+const p1 = Promise.reject("Fail 1");
+const p2 = Promise.resolve("Success 2");
+const p3 = Promise.reject("Fail 3");
+
+Promise.any([p1, p2, p3])
+  .then(console.log) // ✅ "Success 2"
+  .catch(console.error);
+```
+
+🔹 **Use case**: **Fastest successful response** (e.g., multiple redundant API calls).
+
+## 4️⃣ `Promise.race()` – **First settled wins (success or failure)**
+
+✅ Resolves or rejects **with the first settled promise**.
+
+```js
+const p1 = new Promise((resolve) => setTimeout(() => resolve("A"), 1000));
+const p2 = new Promise((_, reject) => setTimeout(() => reject("Error!"), 500));
+
+Promise.race([p1, p2])
+  .then(console.log) // ❌ Won't execute
+  .catch(console.error); // 🚨 "Error!"
+```
+
+🔹 **Use case**: **Timeout mechanism** (fastest response matters).
+
+### 🏆 **Which One Should You Use?**
+
+Scenario
+
+Best Choice
+
+**All tasks must succeed**
+
+`Promise.all()`
+
+**Run all tasks, collect all results**
+
+`Promise.allSettled()`
+
+**Get the first successful result**
+
+`Promise.any()`
+
+**Get the fastest result, success or failure**
+
+`Promise.race()`
 
 ```javascript
 const p1 = Promise.resolve(3);
@@ -487,7 +596,9 @@ function outerFunction() {
 outerFunction(); // Output: 'Outer variable'
 ```
 
-_callback_ : JavaScript callback functions are functions that are passed as an argument to another function, and are executed after the parent function has completed. They are often used to handle asynchronous operations, allowing the calling code to handle the result of the asynchronous operation in a specific way.
+## callback
+
+JavaScript callback functions are functions that are passed as an argument to another function, and are executed after the parent function has completed. They are often used to handle asynchronous operations, allowing the calling code to handle the result of the asynchronous operation in a specific way.
 
 ```javascript
 function fetchData(callback) {
@@ -530,21 +641,6 @@ let person2 = new Person("Bob", 25);
 // Calling method inherited from prototype
 person1.sayHello(); // Output: Hello, my name is Alice
 person2.sayHello(); // Output: Hello, my name is Bob
-```
-
-_Async await_
-The await keyword can only be used inside an async function.
-The await keyword makes the function pause the execution and wait for a resolved promise before it continues:
-
-```javascript
-async function myDisplay() {
-  let myPromise = new Promise(function (resolve, reject) {
-    resolve("I love You !!");
-  });
-  document.getElementById("demo").innerHTML = await myPromise;
-}
-
-myDisplay();
 ```
 
 ## Timming events
