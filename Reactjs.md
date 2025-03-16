@@ -53,16 +53,76 @@ useEffect(() => {
 
 ### useMemo
 
+Clicking "Increment Count" does not trigger recalculation.
+Clicking "Increment Num" triggers recalculation.
+
 ```javascript
-const expensiveCalculation = (num) => {
-  console.log("Calculating...");
-  for (let i = 0; i < 1000000000; i++) {
-    num += 1;
-  }
-  return num;
+import { useMemo, useState } from "react";
+
+const ExpensiveCalculation = ({ num }) => {
+  const squaredNumber = useMemo(() => {
+    console.log("Calculating...");
+    return num * num;
+  }, [num]); // Only recalculates when num changes
+
+  return <p>Square: {squaredNumber}</p>;
 };
 
-const calculation = useMemo(() => expensiveCalculation(count), [count]); // on change of count then only it runs
+export default function App() {
+  const [count, setCount] = useState(0);
+  const [num, setNum] = useState(5);
+
+  return (
+    <div>
+      <button
+        onClick={() => {
+          console.log("Count increment");
+          setCount(count + 1);
+        }}
+      >
+        Increment Count: {count}
+      </button>
+      <button onClick={() => setNum(num + 1)}>Increment Num: {num}</button>
+      <ExpensiveCalculation num={num} />
+    </div>
+  );
+}
+```
+
+### useCallback
+
+useCallback is a React Hook used to memoize functions to prevent unnecessary re-creations on every render.
+from example
+
+- Clicking "Increment Count" does not re-render MemoizedChild (since handleClick remains the same).
+- Clicking "Click Me" logs "Button clicked".
+
+```js
+import React, { useState, useCallback, memo } from "react";
+
+const ChildComponent = ({ onClick }) => {
+  console.log("Child rendered");
+  return <button onClick={onClick}>Click Me</button>;
+};
+
+const MemoizedChild = React.memo(ChildComponent);
+
+export default function App() {
+  const [count, setCount] = useState(0);
+
+  const handleClick = useCallback(() => {
+    console.log("Button clicked");
+  }, []); // No dependencies → function remains the same
+
+  return (
+    <div>
+      <button onClick={() => setCount(count + 1)}>
+        Increment Count: {count}
+      </button>
+      <MemoizedChild onClick={handleClick} />
+    </div>
+  );
+}
 ```
 
 ### String Interpolation
@@ -73,18 +133,6 @@ custom hooks can be used
 ```javascript
 const [value, setValue] = useState("light");
 <div className={`${value}`}>...</div>;
-```
-
-### useCallback
-
-https://www.scaler.com/topics/react/usecallback/
-
-- useCallback will return a memoized version of the callback that only changes if one of the dependencies has changed. This is useful when passing callbacks to optimized child components that rely on reference equality to prevent unnecessary renders.
-
-```javascript
-const memoizedCallback = useCallback(() => {
-  doSomething(a);
-}, [a]);
 ```
 
 ### REACT JS context API
