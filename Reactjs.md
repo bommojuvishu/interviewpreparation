@@ -135,6 +135,128 @@ const [value, setValue] = useState("light");
 <div className={`${value}`}>...</div>;
 ```
 
+## useRef
+
+The useRef hook can hold a mutable value that persists across renders without causing re-renders. By updating the ref inside a useEffect, you can store the previous value of a state variable after every render.
+
+```javascript
+import React, { useState, useEffect, useRef } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+  const prevCountRef = useRef();
+
+  // Update the ref to store the previous count after every render
+  useEffect(() => {
+    prevCountRef.current = count;
+  }, [count]);
+
+  return (
+    <div>
+      <p>Current count: {count}</p>
+      <p>Previous count: {prevCountRef.current}</p>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+}
+
+export default Counter;
+```
+
+Get Input Value Without Re-Rendering
+✅ Pros:
+
+- Avoids re-renders when the input value changes.
+- Directly accesses the DOM element (inputRef.current).
+- Useful for focusing, clearing, or modifying inputs programmatically.
+  ❌ Cons:
+
+Cannot trigger a re-render if the value is updated.
+
+```js
+import { useRef } from "react";
+
+export default function App() {
+  const inputRef = useRef(null);
+
+  const handleClick = () => {
+    console.log("Input Value:", inputRef.current.value); // Get input value without causing re-renders
+  };
+
+  return (
+    <div>
+      <input ref={inputRef} type="text" placeholder="Enter text" />
+      <button onClick={handleClick}>Get Input Value</button>
+    </div>
+  );
+}
+```
+
+## Suspense
+
+### **What is `Suspense` in React?**
+
+`React.Suspense` is a built-in component that allows you to **delay rendering** a component until some asynchronous operation (like data fetching or lazy loading) is complete.
+
+### **Why Use `Suspense`?**
+
+- Improves **user experience** by showing a fallback (like a loading spinner) while waiting for data or components.
+- Supports **lazy loading** components with `React.lazy()`.
+- Works with **React Server Components (RSC)** and **data fetching** in frameworks like Next.js.
+
+1. Lazy Loading Components with `Suspense`
+
+```js
+import React, { Suspense, lazy } from "react";
+
+const LazyComponent = lazy(() => import("./LazyComponent")); // Lazy load
+
+export default function App() {
+  return (
+    <div>
+      <h1>Main App</h1>
+      <Suspense fallback={<h2>Loading Component...</h2>}>
+        <LazyComponent />
+      </Suspense>
+    </div>
+  );
+}
+```
+
+2. Suspense with Data Fetching (React 18 & Next.js)
+
+```js
+import { Suspense } from "react";
+
+function FetchData() {
+  const data = fetch("https://jsonplaceholder.typicode.com/posts/1").then(
+    (res) => res.json()
+  );
+
+  return <pre>{JSON.stringify(data, null, 2)}</pre>;
+}
+
+export default function App() {
+  return (
+    <Suspense fallback={<h2>Loading Data...</h2>}>
+      <FetchData />
+    </Suspense>
+  );
+}
+```
+
+## **When to Use `Suspense`?**
+
+✅ **Use when:**
+
+1.  **Lazy loading components** (`React.lazy()`).
+2.  **Fetching data in React Server Components**.
+3.  **Optimizing performance** by reducing initial bundle size.
+
+❌ **Do NOT use when:**
+
+- You need full control over loading states (use `useState` + `useEffect` instead).
+
 ### REACT JS context API
 
 ```javascript
@@ -580,34 +702,6 @@ export default App;
 - App.js
 - Index.js
 - .env
-
-## useRef
-
-The useRef hook can hold a mutable value that persists across renders without causing re-renders. By updating the ref inside a useEffect, you can store the previous value of a state variable after every render.
-
-```javascript
-import React, { useState, useEffect, useRef } from "react";
-
-function Counter() {
-  const [count, setCount] = useState(0);
-  const prevCountRef = useRef();
-
-  // Update the ref to store the previous count after every render
-  useEffect(() => {
-    prevCountRef.current = count;
-  }, [count]);
-
-  return (
-    <div>
-      <p>Current count: {count}</p>
-      <p>Previous count: {prevCountRef.current}</p>
-      <button onClick={() => setCount(count + 1)}>Increment</button>
-    </div>
-  );
-}
-
-export default Counter;
-```
 
 ## Suspense
 
