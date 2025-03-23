@@ -25,9 +25,68 @@
   - string.split(' ')
   - ' '.join(list_string)
 - range(start, stop, step)
+
   - range(len(arr)
   - range(3 , 6)
   - range(len(arr), 0 , -1) // in reverse
+  - for num in arr[::-1]: // iternate reverse
+  - print(arr[::-1]) // print reverse of arr
+
+  # List methods
+
+- append
+
+```python
+# Adds List Element as value of List.
+List = ['Mathematics', 'chemistry', 1997, 2000]
+List.append(20544)
+print(List)
+```
+
+- insert
+
+```python
+List = ['Mathematics', 'chemistry', 1997, 2000]
+# Insert at index 2 value 10087
+List.insert(2, 10087)
+print(List)
+```
+
+- extend
+
+```python
+List1 = [1, 2, 3]
+List2 = [2, 3, 4, 5]
+# Add List2 to List1
+List1.extend(List2)
+print(List1)
+# Add List1 to List2 now
+List2.extend(List1)
+print(List2)
+```
+
+- index
+
+```python
+List = [1, 2, 3, 1, 2, 1, 2, 3, 2, 1]
+print(List.index(2))
+```
+
+- sort
+
+```python
+List = [2.3, 4.445, 3, 5.33, 1.054, 2.5]
+#Reverse flag is set True
+List.sort(reverse=True)
+#List.sort().reverse(), reverses the sorted list
+print(List)
+```
+
+- pop
+
+````python
+List = [2.3, 4.445, 3, 5.33, 1.054, 2.5]
+print(List.pop(0))
 
 # Problems
 
@@ -52,7 +111,7 @@
             l -= 1
             r += 1
         return res
-```
+````
 
 # Arrays
 

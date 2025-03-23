@@ -67,6 +67,33 @@ function ImageSelection() {
 -
 -
 
+# Reacjs
+
+### unique identifier
+
+Date.now()
+
+```js
+const addTodo = (text) => {
+  setTodos([...todos, { id: Date.now(), text, completed: false }]);
+};
+```
+
+### emoji
+
+```js
+return (
+  <div>
+    <button onClick={() => addTodo("New Task")}>Add Task</button>
+    {todos.map((todo) => (
+      <div key={todo.id} onClick={() => toggleTodo(todo.id)}>
+        {todo.text} {todo.completed ? "✅" : "❌"}
+      </div>
+    ))}
+  </div>
+);
+```
+
 # Links
 
 - git ignore templates

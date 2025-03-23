@@ -192,6 +192,56 @@ export default function App() {
 }
 ```
 
+## useReducer
+
+useReducer is a React Hook for managing complex state logic within functional components. It offers an alternative to useState, particularly when dealing with state that involves multiple sub-values or intricate update logic. useReducer is inspired by the reducer pattern found in Redux, centralizing state management and making it more predictable.
+
+```js
+import { useReducer } from "react";
+
+const initialState = [];
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "ADD_TODO":
+      return [
+        ...state,
+        { id: Date.now(), text: action.payload, completed: false },
+      ];
+    case "TOGGLE_TODO":
+      return state.map((todo) =>
+        todo.id === action.payload
+          ? { ...todo, completed: !todo.completed }
+          : todo
+      );
+    default:
+      return state;
+  }
+}
+
+function TodoApp() {
+  const [todos, dispatch] = useReducer(reducer, initialState);
+
+  return (
+    <div>
+      <button
+        onClick={() => dispatch({ type: "ADD_TODO", payload: "New Task" })}
+      >
+        Add Task
+      </button>
+      {todos.map((todo) => (
+        <div
+          key={todo.id}
+          onClick={() => dispatch({ type: "TOGGLE_TODO", payload: todo.id })}
+        >
+          {todo.text} {todo.completed ? "✅" : "❌"}
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
 ## Suspense
 
 ### **What is `Suspense` in React?**
