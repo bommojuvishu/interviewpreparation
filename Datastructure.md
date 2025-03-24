@@ -1,4 +1,4 @@
-## Approach
+# Approach
 
 - start with the base or smaller test case
 - check if empty or single value given as parameter , then build the solution on it
@@ -32,7 +32,7 @@
   - for num in arr[::-1]: // iternate reverse
   - print(arr[::-1]) // print reverse of arr
 
-  # List methods
+# List methods
 
 - append
 
@@ -90,7 +90,7 @@ print(List.pop(0))
 
 # Problems
 
-# Palindrone
+## Palindrone
 
 - for palidrone , start in the mid and check left and right
   https://leetcode.com/problems/palindromic-substrings/
@@ -112,6 +112,65 @@ print(List.pop(0))
             r += 1
         return res
 ````
+
+# String methods
+
+- find
+
+```python
+message = 'Python is a fun programming language'
+# check the index of 'fun'
+print(message.find('fun'))
+# Output: 12
+```
+
+- index
+
+```python
+text = 'Python is fun'
+# find the index of is
+result = text.index('is')
+print(result)
+# Output: 7
+```
+
+- join
+
+```python
+text = ['Python', 'is', 'a', 'fun', 'programming', 'language']
+# join elements of text with space
+print(' '.join(text))
+# Output: Python is a fun programming language
+```
+
+- replace
+
+```python
+text = 'bat ball'
+# replace 'ba' with 'ro'
+replaced_text = text.replace('ba', 'ro')
+print(replaced_text)
+# Output: rot roll
+```
+
+- find
+
+```python
+text = 'Python is fun'
+# split the text from space
+print(text.split())
+# Output: ['Python', 'is', 'fun']
+```
+
+## Sets
+
+```python
+
+thisset = {"apple", "banana", "cherry", "apple"}
+thisset = set(("apple", "banana", "cherry"))
+
+thisset.add("orange")
+```
 
 # Arrays
 
