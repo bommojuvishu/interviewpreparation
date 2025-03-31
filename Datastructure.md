@@ -164,13 +164,34 @@ print(text.split())
 
 ## Sets
 
+A set in Python is an unordered collection of unique elements. It supports various operations for adding, removing, and performing set operations like union and intersection.
+it is same as dictionary but stores single value
+
 ```python
 
 thisset = {"apple", "banana", "cherry", "apple"}
 thisset = set(("apple", "banana", "cherry"))
 
 thisset.add("orange")
+
+if "banana" in my_set:
+    print("2 is in the set")
 ```
+
+#### Example: Convert List to Set
+
+```python
+my_list = [1, 2, 3, 4, 5, 2, 3, 1]
+my_set = set(my_list)
+
+print(my_set)  # Output: {1, 2, 3, 4, 5}
+```
+
+### 🚀 Summary: When to Use Each?
+
+- **Use a `list` when:** You need an **ordered** collection, allow **duplicates**, or require **indexing**.
+- **Use a `set` when:** You need **unique elements** and **fast lookups** but don't care about order.
+- **Use a `dict` when:** You need to store **key-value pairs** with **fast access**.
 
 # Arrays
 
@@ -403,3 +424,24 @@ print(heapq.heappop(li))
 Problems
 
 - https://leetcode.com/problems/top-k-frequent-elements/solutions/789282/python-heap/
+
+## Fibonacci
+
+```python
+def Fibonacci(n):
+
+    if n < 0:
+        print("Incorrect input")
+
+    elif n == 0:
+        return 0
+
+    elif n == 1 or n == 2:
+        return 1
+
+    else:
+        return Fibonacci(n-1) + Fibonacci(n-2)
+
+print(Fibonacci(9))
+
+```
