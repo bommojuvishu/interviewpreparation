@@ -238,6 +238,29 @@ https://leetcode.com/problems/kth-largest-element-in-an-array/description/
   m = l + ((r - l) // 2)
   mid = (high +low) // 2
 
+```python
+def binary_search(arr, target):
+    left, right = 0, len(arr) - 1
+
+    while left <= right:
+        mid = (left + right) // 2  # Middle index
+
+        if arr[mid] == target:
+            return mid  # Element found
+        elif arr[mid] < target:
+            left = mid + 1  # Search in right half
+        else:
+            right = mid - 1  # Search in left half
+
+    return -1  # Element not found
+
+# Example Usage
+arr = [10, 20, 30, 40, 50, 60, 70]
+target = 40
+print(binary_search(arr, target))  # Output: 3 (index of 40)
+
+```
+
 # Stack
 
 - check if stack is empty or not , then check for value
@@ -377,19 +400,26 @@ class Solution:
 
 ## Selection sort
 
+- always 2 loops
+
 ```python
-def selection_sort(my_list):
-    for i in range(len(my_list)-1):
-        min_index = i
-        for j in range(i+1, len(my_list)):
-            if my_list[j] < my_list[min_index]:
-                min_index = j
-        if i != min_index:
-            temp = my_list[i]
-            my_list[i] = my_list[min_index]
-            my_list[min_index] = temp
-    return my_list
+def selection_sort(arr):
+    n = len(arr)  # Get the length of the array
+    for i in range(n):  # Outer loop runs n times
+        min_index = i  # Assume current index has the smallest value
+        for j in range(i + 1, n):  # Find the smallest element in the remaining array
+            if arr[j] < arr[min_index]:  # If found a smaller element
+                min_index = j  # Update the index of the smallest element
+        arr[i], arr[min_index] = arr[min_index], arr[i]  # Swap the smallest element with the current position
+    return arr
 ```
+
+# Example
+
+arr = [64, 25, 12, 22, 11]
+print(selection_sort(arr)) # Output: [11, 12, 22, 25, 64]
+
+````
 
 # Heap
 
@@ -419,7 +449,7 @@ print(list(li))
 print("The popped and smallest element is : ", end="")
 print(heapq.heappop(li))
 
-```
+````
 
 Problems
 

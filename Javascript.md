@@ -186,7 +186,8 @@ basic data types that are not composed of other data types. They are the simples
 
 ## Javascript Concepts
 
-_call, apply, bind_:
+### call, apply, bind :
+
 Using the call method, we can invoke a function, by passing a value that will be treated as this inside it.
 
 apply — in the case of apply, the additional arguments will be passed as an array.
@@ -289,7 +290,8 @@ let person1 = new Person("John", 30, "Developer");
 
 Note : don't create function inside another function , always create the function at the prototype level because it will create n number of duplicate methods for the n number of objects
 
-_Explain the difference between let, var and const in JavaScript._
+#### Explain the difference between let, var and const in JavaScript.\_
+
 var: they are only accessible within the function in which they are defined. If a variable is declared with var outside of any function, it is accessible throughout the entire script and is known as a global variable. Variables declared with var are also hoisted to the top of the scope, which means they can be used before they are declared.
 \*var are function scoped
 
@@ -619,7 +621,8 @@ Comparing two objects to determine if they are equal can be a bit tricky because
 - Using the JSON.stringify() method
 - iterating over the properties of one object
 
-_How do you implement inheritance in JavaScript?(prototype)_
+#### How do you implement inheritance in JavaScript?(prototype)
+
 In JavaScript, inheritance can be implemented using the prototype chain. Every object in JavaScript has a prototype property, which is a reference to another object. When a property or method is accessed on an object and is not found on that object, JavaScript will look for it on the object's prototype. This allows for a chain of prototypes to be established, with objects inheriting properties and methods from their prototypes.
 
 ```javascript

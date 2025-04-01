@@ -28,69 +28,72 @@ The **Least Recently Used (LRU) Cache** algorithm ensures that when the cache re
   - Add the new node at the **front (MRU)** and store it in `lookup`.
 
 ```python
-%%writefile lru_cache.py
-class Node(object):
-
-    def __init__(self, results):
-        self.results = results
+class Node:
+    """A node in a doubly linked list"""
+    def __init__(self, key, value):
+        self.key = key
+        self.value = value
         self.prev = None
         self.next = None
 
+class LRUCache:
+    """LRU Cache implemented using a hash map and a doubly linked list"""
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.cache = {}  # Hash map to store key-node pairs
 
-class LinkedList(object):
+        # Dummy head and tail to manage the doubly linked list easily
+        self.head = Node(0, 0)
+        self.tail = Node(0, 0)
+        self.head.next = self.tail
+        self.tail.prev = self.head
 
-    def __init__(self):
-        self.head = None
-        self.tail = None
+    def _remove(self, node):
+        """Removes a node from the doubly linked list"""
+        prev, nxt = node.prev, node.next
+        prev.next = nxt
+        nxt.prev = prev
 
-    def move_to_front(self, node):  # ...
-    def append_to_front(self, node):  # ...
-    def remove_from_tail(self):  # ...
+    def _add_to_front(self, node):
+        """Adds a node right after the head (Most Recently Used)"""
+        node.next = self.head.next
+        node.prev = self.head
+        self.head.next.prev = node
+        self.head.next = node
 
+    def get(self, key: int) -> int:
+        """Fetches the value of a key and moves it to the front if found"""
+        if key in self.cache:
+            node = self.cache[key]
+            self._remove(node)  # Move accessed node to front
+            self._add_to_front(node)
+            return node.value
+        return -1  # Key not found
 
-class Cache(object):
+    def put(self, key: int, value: int):
+        """Adds a key-value pair or updates it; removes LRU if capacity is exceeded"""
+        if key in self.cache:
+            self._remove(self.cache[key])  # Remove old node
 
-    def __init__(self, MAX_SIZE):
-        self.MAX_SIZE = MAX_SIZE
-        self.size = 0
-        self.lookup = {}  # key: query, value: node
-        self.linked_list = LinkedList()
+        new_node = Node(key, value)
+        self._add_to_front(new_node)  # Insert new node at front
+        self.cache[key] = new_node
 
-    def get(self, query)
-        """Get the stored query result from the cache.
+        if len(self.cache) > self.capacity:  # Remove LRU node
+            lru_node = self.tail.prev
+            self._remove(lru_node)
+            del self.cache[lru_node.key]  # Remove from hash map
 
-        Accessing a node updates its position to the front of the LRU list.
-        """
-        node = self.lookup.get(query)
-        if node is None:
-            return None
-        self.linked_list.move_to_front(node)
-        return node.results
+# Example Usage
+lru = LRUCache(3)
+lru.put(1, 100)
+lru.put(2, 200)
+lru.put(3, 300)
+print(lru.get(1))  # 100 (moves to most recently used)
+lru.put(4, 400)    # Removes least recently used key (2)
+print(lru.get(2))  # -1 (not found)
+print(lru.get(3))  # 300
 
-    def set(self, results, query):
-        """Set the result for the given query key in the cache.
-
-        When updating an entry, updates its position to the front of the LRU list.
-        If the entry is new and the cache is at capacity, removes the oldest entry
-        before the new entry is added.
-        """
-        node = self.lookup.get(query)
-        if node is not None:
-            # Key exists in cache, update the value
-            node.results = results
-            self.linked_list.move_to_front(node)
-        else:
-            # Key does not exist in cache
-            if self.size == self.MAX_SIZE:
-                # Remove the oldest entry from the linked list and lookup
-                self.lookup.pop(self.linked_list.tail.query, None)
-                self.linked_list.remove_from_tail()
-            else:
-                self.size += 1
-            # Add the new key and value
-            new_node = Node(results)
-            self.linked_list.append_to_front(new_node)
-            self.lookup[query] = new_node
 ```
 
 ### **Why This Algorithm is Efficient?**
