@@ -5,6 +5,9 @@
 - write a basic algo before proceding
 - check the data given ( if it can used as for loop condition)
 - use nonlocal keyword to refer the main function variable inside the nested function
+- Analyse visually
+  - https://leetcode.com/problems/longest-consecutive-sequence/description/
+  - https://www.youtube.com/watch?v=P6RZZMu_maU
 
 ## Tips
 
@@ -162,6 +165,19 @@ print(text.split())
 # Output: ['Python', 'is', 'fun']
 ```
 
+## Dictionary
+
+To check whether two dictionaries or sets are equal in Python, you can use the == operator:
+Two dictionaries are equal if they have the same key-value pairs, regardless of order.
+
+```python
+dict1 = {'a': 1, 'b': 2, 'c': 3}
+dict2 = {'b': 2, 'a': 1, 'c': 3}
+
+print(dict1 == dict2)  # True (order doesn't matter in dictionaries)
+
+```
+
 ## Sets
 
 A set in Python is an unordered collection of unique elements. It supports various operations for adding, removing, and performing set operations like union and intersection.
@@ -178,6 +194,18 @@ if "banana" in my_set:
     print("2 is in the set")
 ```
 
+### Equal
+
+Two sets are equal if they contain the same elements, regardless of order.
+
+```python
+set1 = {1, 2, 3}
+set2 = {3, 2, 1}
+
+print(set1 == set2)  # True (order doesn't matter in sets)
+
+```
+
 #### Example: Convert List to Set
 
 ```python
@@ -185,6 +213,7 @@ my_list = [1, 2, 3, 4, 5, 2, 3, 1]
 my_set = set(my_list)
 
 print(my_set)  # Output: {1, 2, 3, 4, 5}
+
 ```
 
 ### 🚀 Summary: When to Use Each?
@@ -473,5 +502,74 @@ def Fibonacci(n):
         return Fibonacci(n-1) + Fibonacci(n-2)
 
 print(Fibonacci(9))
+
+```
+
+## Hashing
+
+### Problem 1:
+
+https://leetcode.com/problems/ransom-note/description/?envType=study-plan-v2&envId=top-interview-150
+
+Given two strings ransomNote and magazine, return true if ransomNote can be constructed by using the letters from magazine and false otherwise.
+
+Each letter in magazine can only be used once in ransomNote.
+
+Example 1:
+
+Input: ransomNote = "aa", magazine = "ab"
+Output: false
+
+```python
+class Solution:
+    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
+        hash_map = {}
+
+        for i in magazine:
+            hash_map[i] = hash_map.get(i, 0) + 1
+
+        for i in ransomNote:
+            if i in hash_map and hash_map[i] != 0:
+                hash_map[i] = hash_map[i] - 1
+            else:
+                return False
+
+        return True
+```
+
+## Kandane Algorithn
+
+Given an integer array nums, find the subarray with the largest sum, and return its sum.
+Example 1:
+
+Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
+Output: 6
+Explanation: The subarray [4,-1,2,1] has the largest sum 6.
+
+```python
+def kadane(arr):
+    max_so_far = float('-inf')
+    max_ending_here = 0
+    start = end = s = 0  # Variables to track subarray indices
+
+    for i in range(len(arr)):
+        max_ending_here += arr[i]
+
+        if max_ending_here > max_so_far:
+            max_so_far = max_ending_here
+            start = s
+            end = i
+
+        if max_ending_here < 0:
+            max_ending_here = 0
+            s = i + 1  # Start new subarray
+
+    return max_so_far, arr[start:end+1]  # Return max sum and subarray
+
+# Example usage
+arr = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+max_sum, subarray = kadane(arr)
+print("Maximum Sum:", max_sum)  # Output: 6
+print("Subarray:", subarray)  # Output: [4, -1, 2, 1]
 
 ```
