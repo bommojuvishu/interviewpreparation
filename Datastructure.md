@@ -194,7 +194,7 @@ if "banana" in my_set:
     print("2 is in the set")
 ```
 
-### Equal
+#### Equal
 
 Two sets are equal if they contain the same elements, regardless of order.
 
@@ -221,6 +221,43 @@ print(my_set)  # Output: {1, 2, 3, 4, 5}
 - **Use a `list` when:** You need an **ordered** collection, allow **duplicates**, or require **indexing**.
 - **Use a `set` when:** You need **unique elements** and **fast lookups** but don't care about order.
 - **Use a `dict` when:** You need to store **key-value pairs** with **fast access**.
+
+# Heap
+
+arr = [64, 25, 12, 22, 11]
+print(selection_sort(arr)) # Output: [11, 12, 22, 25, 64]
+
+```python
+# importing "heapq" to implement heap queue
+import heapq
+
+# initializing list
+li = [5, 7, 9, 1, 3]
+
+# using heapify to convert list into heap
+heapq.heapify(li)
+
+# printing created heap
+print("The created heap is : ", end="")
+print(list(li))
+
+# using heappush() to push elements into heap
+# pushes 4
+heapq.heappush(li, 4)
+
+# printing modified heap
+print("The modified heap after push is : ", end="")
+print(list(li))
+
+# using heappop() to pop smallest element
+print("The popped and smallest element is : ", end="")
+print(heapq.heappop(li))
+
+```
+
+Problems
+
+- https://leetcode.com/problems/top-k-frequent-elements/solutions/789282/python-heap/
 
 # Arrays
 
@@ -442,47 +479,6 @@ def selection_sort(arr):
         arr[i], arr[min_index] = arr[min_index], arr[i]  # Swap the smallest element with the current position
     return arr
 ```
-
-# Example
-
-arr = [64, 25, 12, 22, 11]
-print(selection_sort(arr)) # Output: [11, 12, 22, 25, 64]
-
-````
-
-# Heap
-
-```python
-# importing "heapq" to implement heap queue
-import heapq
-
-# initializing list
-li = [5, 7, 9, 1, 3]
-
-# using heapify to convert list into heap
-heapq.heapify(li)
-
-# printing created heap
-print("The created heap is : ", end="")
-print(list(li))
-
-# using heappush() to push elements into heap
-# pushes 4
-heapq.heappush(li, 4)
-
-# printing modified heap
-print("The modified heap after push is : ", end="")
-print(list(li))
-
-# using heappop() to pop smallest element
-print("The popped and smallest element is : ", end="")
-print(heapq.heappop(li))
-
-````
-
-Problems
-
-- https://leetcode.com/problems/top-k-frequent-elements/solutions/789282/python-heap/
 
 ## Fibonacci
 
