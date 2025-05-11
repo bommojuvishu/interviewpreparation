@@ -17,7 +17,7 @@ A **monotonic stack** is a stack that maintains elements in a specific order—e
 7.  **Stock Span Problem** (Leetcode #901)
 8.  **Daily Temperatures** (Leetcode #739)
 
-```
+```python
 def next_greater_element(nums):
     n = len(nums)
     result = [-1] * n  # Default -1 if no greater element

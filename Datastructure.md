@@ -1,3 +1,8 @@
+# Table of contents
+
+- [Linkedlist](#linkedList)
+- [My Section Title](#my-section-title)
+
 # Approach
 
 - start with the base or smaller test case
@@ -8,6 +13,10 @@
 - Analyse visually
   - https://leetcode.com/problems/longest-consecutive-sequence/description/
   - https://www.youtube.com/watch?v=P6RZZMu_maU
+
+# Shortcut
+
+- AVL and Red Black tree implementation is very big , most probably won't be ask in the interview
 
 ## Tips
 
@@ -278,7 +287,7 @@ https://leetcode.com/problems/squares-of-a-sorted-array/description/
         return sorted(nums)
 ```
 
-## findKthLargest
+### findKthLargest
 
 https://leetcode.com/problems/kth-largest-element-in-an-array/description/
 
@@ -292,10 +301,30 @@ https://leetcode.com/problems/kth-largest-element-in-an-array/description/
         return li[0]
 ```
 
-# 2 pointer approach
+# Two pointer approach
 
-- use if we want to move the set of keys to end
-  - https://leetcode.com/problems/move-zeroes/description/
+Testcase :
+Input: numbers = [2,7,11,15], target = 9
+Output: [1,2]
+
+Explanation: The sum of 2 and 7 is 9. Therefore, index1 = 1, index2 = 2.
+
+```python
+def twoSum(numbers, target):
+    left = 0
+    right = len(numbers) - 1
+
+    while left < right:
+        total = numbers[left] + numbers[right]
+
+        if total == target:
+            return [left + 1, right + 1]  # 1-based index
+        elif total < target:
+            left += 1
+        else:
+            right -= 1
+
+```
 
 # Binary Search
 
@@ -333,7 +362,20 @@ print(binary_search(arr, target))  # Output: 3 (index of 40)
   - if not stack or stack.pop() != mapp[ch]:
   - if len(arr)> 0 and ( arr[-1] == x ):
 
-# Linked List
+# LinkedList
+
+⚠️**Tip** : for removing/inserting always stop one node before
+
+```
+if node.next == val:
+```
+
+⚠️**Tip** : create a dummy node and attach to head or tail
+
+```
+dummy = ListNode()
+tail = dummy
+```
 
 ### Two pointer approach
 
@@ -567,5 +609,17 @@ arr = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
 max_sum, subarray = kadane(arr)
 print("Maximum Sum:", max_sum)  # Output: 6
 print("Subarray:", subarray)  # Output: [4, -1, 2, 1]
+
+```
+
+another implementation
+
+```python
+def kadane(arr):
+    max_ending_here = max_so_far = arr[0]  # initialize with first element
+    for x in arr[1:]:
+        max_ending_here = max(x, max_ending_here + x)
+        max_so_far = max(max_so_far, max_ending_here)
+    return max_so_far
 
 ```
