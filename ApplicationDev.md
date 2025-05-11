@@ -69,6 +69,11 @@ function ImageSelection() {
 
 # Reacjs
 
+## Installation
+```
+npm create vite@latest my-vue-app -- --template react
+```
+
 ### unique identifier
 
 Date.now()
