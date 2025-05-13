@@ -28,7 +28,21 @@
   3. {} linked to protytpe
   4. function automatically return {}
 - pass by value : primitive data types , pass by reference : objects and arrays
--
+- If you want to preserve something across function calls: declare it outside (in the closure) - run once
+
+  ````javascript
+  function once(fn) {
+  let called = false;
+  return function (...args) {
+  if (!called) {
+  called = true;
+  return fn.apply(this, args);
+  }
+  };
+  }
+
+      ```
+  ````
 
 # Arrays methods
 
@@ -241,6 +255,17 @@ Closures are commonly used in JavaScript to:
 - To create a function that can be passed around and executed later
 
 _hoisting_ : hoisting is a mechanism where variable and function declarations are moved to the top of the scope in which they are defined. This means that variables and functions can be used before they are declared in the code.
+
+### Using rest parameters (...args) (modern, preferred way)
+
+Works in both regular and arrow functions. It explicitly captures all parameters into an array.
+
+```javascript
+const modernStyle = (...args) => {
+  console.log(args); // real array
+};
+modernStyle(1, 2, 3); // logs [1, 2, 3]
+```
 
 ## 3 ways to create object
 
@@ -1031,4 +1056,36 @@ console.log(singletonInstance1 === singletonInstance2); // Output: true
 
 console.log(singletonInstance1.getData()); // Output: ["Data 1", "Data 2"]
 console.log(singletonInstance2.getData()); // Output: ["Data 1", "Data 2"]
+```
+
+## Debounce and Throttle
+
+- debounce
+
+```javascript
+export default function debounce(func, wait) {
+  let timeout;
+  return function (...args) {
+    clearTimeout(timeout); // Clear the previous timeout
+    timeout = setTimeout(() => {
+      func.apply(this, args); // Call the original function with the latest arguments
+    }, wait);
+  };
+}
+```
+
+- throttle
+
+```javascript
+export default function throttle(func, wait) {
+  let lastCalled = 0;
+
+  return function (...args) {
+    const now = Date.now();
+    if (now - lastCalled >= wait) {
+      lastCalled = now;
+      func.apply(this, args);
+    }
+  };
+}
 ```
