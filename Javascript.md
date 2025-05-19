@@ -254,7 +254,28 @@ Closures are commonly used in JavaScript to:
 - To create a function factory
 - To create a function that can be passed around and executed later
 
-_hoisting_ : hoisting is a mechanism where variable and function declarations are moved to the top of the scope in which they are defined. This means that variables and functions can be used before they are declared in the code.
+### Hoisting
+
+Hoisting is a mechanism where variable and function declarations are moved to the top of the scope in which they are defined. This means that variables and functions can be used before they are declared in the code.
+
+Function declarations use the function keyword. Unlike function expressions, function declarations have both the declaration and definition hoisted, thus they can be called even before they are declared.
+
+```javascript
+console.log(foo); // [Function: foo]
+foo(); // 'FOOOOO'
+
+function foo() {
+  console.log("FOOOOO");
+}
+```
+
+import statement too
+
+```javascript
+foo.doSomething(); // Works normally.
+
+import foo from "./modules/foo";
+```
 
 ### Using rest parameters (...args) (modern, preferred way)
 
@@ -346,6 +367,10 @@ console.log(z); // ReferenceError
 
 JavaScript promise is an object that represents the eventual completion or failure of an asynchronous operation and its resulting value. Promises provide a way to register callbacks that are executed when the promise is fulfilled or rejected, making it easier to handle asynchronous code in a more synchronous way.
 
+- The then() method takes up to two arguments; the first argument is a callback function for the fulfilled case of the promise, and the second argument is a callback function for the rejected case.
+
+-
+
 ```javascript
 let promise = new Promise(function (resolve, reject) {
   setTimeout(function () {
@@ -361,6 +386,118 @@ promise
     console.log(error);
   });
 ```
+
+Before Promise : Callback hell
+
+```javascript
+function getFirstData(callback) {
+  setTimeout(() => {
+    callback({ id: 1, title: "First Data" });
+  }, 1000);
+}
+
+function getSecondData(data, callback) {
+  setTimeout(() => {
+    callback({ id: data.id, title: data.title + " Second Data" });
+  }, 1000);
+}
+
+function getThirdData(data, callback) {
+  setTimeout(() => {
+    callback({ id: data.id, title: data.title + " Third Data" });
+  }, 1000);
+}
+
+// Callback hell
+getFirstData((data) => {
+  getSecondData(data, (data) => {
+    getThirdData(data, (result) => {
+      console.log(result); // Output: {id: 1, title: "First Data Second Data Third Data"}
+    });
+  });
+});
+```
+
+After implementing promises
+
+```javascript
+// Example of sequential asynchronous code using setTimeout and Promises
+function getFirstData() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve({ id: 1, title: "First Data" });
+    }, 1000);
+  });
+}
+
+function getSecondData(data) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve({ id: data.id, title: data.title + " Second Data" });
+    }, 1000);
+  });
+}
+
+function getThirdData(data) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve({ id: data.id, title: data.title + " Third Data" });
+    }, 1000);
+  });
+}
+
+getFirstData()
+  .then(getSecondData)
+  .then(getThirdData)
+  .then((data) => {
+    console.log(data); // Output: {id: 1, title: "First Data Second Data Third Data"}
+  })
+  .catch((error) => console.error("Error:", error));
+```
+
+### 🔹 Why Use `Promise.resolve()` in `promiseAny`
+
+When implementing a `promiseAny` function, input values may be either Promises or plain values (e.g., numbers, strings). Plain values don’t have a `.then()` method, so directly calling `.then()` will throw an error.
+
+✅ `Promise.resolve(value)` ensures the value is safely treated as a Promise, allowing uniform `.then()` usage.
+
+---
+
+### ✅ Example
+
+```js
+async function promiseAny(iterable) {
+  return new Promise((resolve, reject) => {
+    let errors = [];
+    let pending = iterable.length;
+
+    for (let item of iterable) {
+      Promise.resolve(item)
+        .then(resolve)
+        .catch((err) => {
+          errors.push(err);
+          if (--pending === 0) reject(errors);
+        });
+    }
+  });
+}
+
+// Usage
+async function main() {
+  const res = await promiseAny([2, Promise.reject("fail")]);
+  console.log("RES:", res); // RES: 2
+}
+
+main();
+```
+
+---
+
+> 🔸 Without `Promise.resolve()`, `.then()` would throw if the value is not already a Promise.
+
+4o
+
+---
 
 ## Async await
 
@@ -1088,4 +1225,39 @@ export default function throttle(func, wait) {
     }
   };
 }
+```
+
+## Event loop
+
+##### Task queue / Macrotask queue / Callback queue
+
+The task queue, also known as the macrotask queue / callback queue / event queue, is a queue that holds tasks that need to be executed. These tasks are typically asynchronous operations, such as callbacks passed to web APIs (setTimeout(), setInterval(), HTTP requests, etc.), and user interface event handlers like clicks, scrolls, etc.
+
+##### Microtasks queue
+
+Microtasks are tasks that have a higher priority than macrotasks and are executed immediately after the currently executing script is completed and before the next macrotask is executed. Microtasks are usually used for more immediate, lightweight operations that should be executed as soon as possible after the current operation completes. There is a dedicated microtask queue for microtasks. Microtasks include promises callbacks (then(), catch(), and finally()), await statements, queueMicrotask(), and MutationObserver callbacks.
+
+```javascript
+console.log("Start");
+
+setTimeout(() => {
+  console.log("Timeout 1");
+}, 0);
+
+Promise.resolve().then(() => {
+  console.log("Promise 1");
+});
+
+setTimeout(() => {
+  console.log("Timeout 2");
+}, 0);
+
+console.log("End");
+
+// Console output:
+// Start
+// End
+// Promise 1
+// Timeout 1
+// Timeout 2
 ```
