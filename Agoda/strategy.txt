@@ -1,0 +1,8 @@
+
+
+- from youtube : medium and easy question , because of hard will take time to solve , generally one hour only 
+    - hard question will be out of scope  , specially on DP 
+- Practise easy and medium questions
+- ask chat gpt on the preparation 
+
+
