@@ -5,11 +5,10 @@
 
 # Approach
 
-- start with the base or smaller test case
-- check if empty or single value given as parameter , then build the solution on it
-- write a basic algo before proceding
-- check the data given ( if it can used as for loop condition)
-- use nonlocal keyword to refer the main function variable inside the nested function
+- BOOK and PEN : write the algo , check if one test input passing or not , then code it
+- Brute force -> Better -> Optimal : don't code the optimal directly , talk to the interviewer , get the inputs
+- start with the smaller test case
+
 - Analyse visually
   - https://leetcode.com/problems/longest-consecutive-sequence/description/
   - https://www.youtube.com/watch?v=P6RZZMu_maU
@@ -20,6 +19,8 @@
 
 ## Tips
 
+- use nonlocal keyword to refer the main function variable inside the nested function
+- check the data given ( if it can used as for loop condition)
 - Arrays : check if can sort the array , it may help any way
   - str.sort() : in line , only list
   - sorted(str , reverse = True) : new string , both string and list
@@ -27,6 +28,10 @@
 - Array: split a string into a list of characters
   - list("foobar") # ['f', 'o', 'o', 'b', 'a', 'r']
 - Array temp: []\*len(arr)
+- range(start, stop, step)
+  - range(len(arr))
+  - range(3, 6)
+  - range(3, 20, 2) #
 - use ans = collections.defaultdict(list)
 - heapq for sorting
   - heapq.heapify(li) ( default ASC)
@@ -377,6 +382,36 @@ dummy = ListNode()
 tail = dummy
 ```
 
+# Sliding window
+
+- 2 types
+  - fixed
+  - dynamic
+- for dynamic , look for the condition that breaks and moves the left pointer to foward
+  - window can be represented as "r - l + 1" or Queue data structure
+
+##### Never use the list/que as the window , Using a list-based window adds overhead due to the cost of removing from the front (pop(0)) and extra space.
+
+Example :
+Longest Substring Without Repeating Characters - Explanation
+
+```python
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        charSet = set()
+        l = 0
+        res = 0
+
+        for r in range(len(s)):
+            while s[r] in charSet:
+                charSet.remove(s[l])
+                l += 1
+            charSet.add(s[r])
+            res = max(res, r - l + 1)
+        return res
+
+```
+
 ### Two pointer approach
 
     - https://leetcode.com/problems/middle-of-the-linked-list/
@@ -576,6 +611,8 @@ class Solution:
 ```
 
 ## Kandane Algorithn
+
+https://neetcode.io/courses/advanced-algorithms/0
 
 Given an integer array nums, find the subarray with the largest sum, and return its sum.
 Example 1:
