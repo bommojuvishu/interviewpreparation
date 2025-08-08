@@ -53,37 +53,34 @@ useEffect(() => {
 
 ### useMemo
 
-Clicking "Increment Count" does not trigger recalculation.
-Clicking "Increment Num" triggers recalculation.
+🧪 What to Test:
+Click "Increment Count"
+🔸 Both "Component Rendered" and "Expensive calculation running..." are logged.
+
+Click "Trigger Re-render"
+🔸 Only "Component Rendered" is logged — expensive logic is skipped.
 
 ```javascript
-import { useMemo, useState } from "react";
-
-const ExpensiveCalculation = ({ num }) => {
-  const squaredNumber = useMemo(() => {
-    console.log("Calculating...");
-    return num * num;
-  }, [num]); // Only recalculates when num changes
-
-  return <p>Square: {squaredNumber}</p>;
-};
+import React, { useState, useMemo } from "react";
 
 export default function App() {
   const [count, setCount] = useState(0);
-  const [num, setNum] = useState(5);
+  const [otherState, setOtherState] = useState(0);
+
+  console.log("🔁 Component Rendered");
+
+  const expensiveValue = useMemo(() => {
+    console.log("💥 Expensive calculation running...");
+    return count * 1000;
+  }, [count]);
 
   return (
     <div>
-      <button
-        onClick={() => {
-          console.log("Count increment");
-          setCount(count + 1);
-        }}
-      >
-        Increment Count: {count}
+      <h2>Expensive Value: {expensiveValue}</h2>
+      <button onClick={() => setCount(count + 1)}>Increment Count</button>
+      <button onClick={() => setOtherState(otherState + 1)}>
+        Trigger Re-render
       </button>
-      <button onClick={() => setNum(num + 1)}>Increment Num: {num}</button>
-      <ExpensiveCalculation num={num} />
     </div>
   );
 }

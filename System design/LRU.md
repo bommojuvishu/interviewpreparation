@@ -28,8 +28,7 @@ The **Least Recently Used (LRU) Cache** algorithm ensures that when the cache re
   - Add the new node at the **front (MRU)** and store it in `lookup`.
 
 ```python
-class Node:
-    """A node in a doubly linked list"""
+class ListNode:
     def __init__(self, key, value):
         self.key = key
         self.value = value
@@ -37,52 +36,53 @@ class Node:
         self.next = None
 
 class LRUCache:
-    """LRU Cache implemented using a hash map and a doubly linked list"""
-    def __init__(self, capacity: int):
-        self.capacity = capacity
-        self.cache = {}  # Hash map to store key-node pairs
 
-        # Dummy head and tail to manage the doubly linked list easily
-        self.head = Node(0, 0)
-        self.tail = Node(0, 0)
+    def __init__(self, capacity: int):
+        self.dic = dict() # key to node
+        self.capacity = capacity
+        self.head = ListNode(0, 0)
+        self.tail = ListNode(-1, -1)
         self.head.next = self.tail
         self.tail.prev = self.head
 
-    def _remove(self, node):
-        """Removes a node from the doubly linked list"""
-        prev, nxt = node.prev, node.next
-        prev.next = nxt
-        nxt.prev = prev
-
-    def _add_to_front(self, node):
-        """Adds a node right after the head (Most Recently Used)"""
-        node.next = self.head.next
-        node.prev = self.head
-        self.head.next.prev = node
-        self.head.next = node
-
     def get(self, key: int) -> int:
-        """Fetches the value of a key and moves it to the front if found"""
-        if key in self.cache:
-            node = self.cache[key]
-            self._remove(node)  # Move accessed node to front
-            self._add_to_front(node)
+        if key in self.dic:
+            node = self.dic[key]
+            self.removeFromList(node)
+            self.insertIntoHead(node)
             return node.value
-        return -1  # Key not found
+        else:
+            return -1
 
-    def put(self, key: int, value: int):
-        """Adds a key-value pair or updates it; removes LRU if capacity is exceeded"""
-        if key in self.cache:
-            self._remove(self.cache[key])  # Remove old node
+    def put(self, key: int, value: int) -> None:
+        if key in self.dic:             # similar to get()
+            node = self.dic[key]
+            self.removeFromList(node)
+            self.insertIntoHead(node)
+            node.value = value         # replace the value len(dic)
+        else:
+            if len(self.dic) >= self.capacity:
+                self.removeFromTail()
+            node = ListNode(key,value)
+            self.dic[key] = node
+            self.insertIntoHead(node)
 
-        new_node = Node(key, value)
-        self._add_to_front(new_node)  # Insert new node at front
-        self.cache[key] = new_node
+    def removeFromList(self, node):
+        node.prev.next = node.next
+        node.next.prev = node.prev
 
-        if len(self.cache) > self.capacity:  # Remove LRU node
-            lru_node = self.tail.prev
-            self._remove(lru_node)
-            del self.cache[lru_node.key]  # Remove from hash map
+    def insertIntoHead(self, node):
+        headNext = self.head.next
+        self.head.next = node
+        node.prev = self.head
+        node.next = headNext
+        headNext.prev = node
+
+    def removeFromTail(self):
+        if len(self.dic) == 0: return
+        tail_node = self.tail.prev
+        del self.dic[tail_node.key]
+        self.removeFromList(tail_node)
 
 # Example Usage
 lru = LRUCache(3)

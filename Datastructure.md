@@ -13,9 +13,13 @@
   - https://leetcode.com/problems/longest-consecutive-sequence/description/
   - https://www.youtube.com/watch?v=P6RZZMu_maU
 
+---
+
 # Shortcut
 
 - AVL and Red Black tree implementation is very big , most probably won't be ask in the interview
+
+---
 
 ## Tips
 
@@ -48,6 +52,11 @@
   - range(len(arr), 0 , -1) // in reverse
   - for num in arr[::-1]: // iternate reverse
   - print(arr[::-1]) // print reverse of arr
+
+- Best sort algo big O : n2
+- Best search algo Big O : logn (Binary Search)
+
+---
 
 # List methods
 
@@ -130,6 +139,8 @@ print(List.pop(0))
         return res
 ````
 
+---
+
 # String methods
 
 - find
@@ -179,6 +190,8 @@ print(text.split())
 # Output: ['Python', 'is', 'fun']
 ```
 
+---
+
 ## Dictionary
 
 To check whether two dictionaries or sets are equal in Python, you can use the == operator:
@@ -190,7 +203,23 @@ dict2 = {'b': 2, 'a': 1, 'c': 3}
 
 print(dict1 == dict2)  # True (order doesn't matter in dictionaries)
 
+my_dict = {'apple': 10, 'banana': 5, 'cherry': 8}
+del my_dict['banana']
+print(my_dict)  # Output: {'apple': 10, 'cherry': 8}
+
+my_dict = {'apple': 10, 'banana': 5, 'cherry': 8}
+value = my_dict.pop('banana')
+print(value)     # Output: 5
+print(my_dict)   # Output: {'apple': 10, 'cherry': 8}
+
+# With default:
+value = my_dict.pop('orange', 0)
+print(value)     # Output: 0
+
+
 ```
+
+---
 
 ## Sets
 
@@ -199,13 +228,26 @@ it is same as dictionary but stores single value
 
 ```python
 
-thisset = {"apple", "banana", "cherry", "apple"}
-thisset = set(("apple", "banana", "cherry"))
+data = ['apple', 'banana', 'apple', 'orange', 'banana']
+unique_items = set(data)
+print(unique_items)
+# Output: {'apple', 'banana', 'orange'}
 
-thisset.add("orange")
 
-if "banana" in my_set:
-    print("2 is in the set")
+if 'banana' in set_a:
+    print("Found banana!")
+
+#remove
+
+my_set = {1, 2, 3}
+my_set.remove(2)
+print(my_set)  # Output: {1, 3}
+
+# 🚫 Does not raise an error if the element is not present.
+my_set = {1, 2, 3}
+my_set.discard(4)  # No error even though 4 is not in the set
+print(my_set)  # Output: {1, 2, 3}
+
 ```
 
 #### Equal
@@ -235,6 +277,35 @@ print(my_set)  # Output: {1, 2, 3, 4, 5}
 - **Use a `list` when:** You need an **ordered** collection, allow **duplicates**, or require **indexing**.
 - **Use a `set` when:** You need **unique elements** and **fast lookups** but don't care about order.
 - **Use a `dict` when:** You need to store **key-value pairs** with **fast access**.
+
+---
+
+## 🔄 **\. Using `for` loop to reverse:**
+
+### Option 1: `range(start, end, step)`
+
+If you want to iterate backwards from `n-1` to `0`, you can use:
+
+```python
+for i in range(n-1, -1, -1):
+    print(i)
+```
+
+👉 Here’s what’s happening:
+
+- `start = n-1`
+- `end = -1` (exclusive, so it stops at 0)
+- `step = -1` (to decrement)
+
+Example:
+
+```python
+arr = [5, 4, 3, 2, 1]
+for i in range(len(arr)-1, -1, -1):
+    print(arr[i])
+```
+
+---
 
 # Heap
 
@@ -272,6 +343,8 @@ print(heapq.heappop(li))
 Problems
 
 - https://leetcode.com/problems/top-k-frequent-elements/solutions/789282/python-heap/
+
+---
 
 # Arrays
 
@@ -331,6 +404,8 @@ def twoSum(numbers, target):
 
 ```
 
+---
+
 # Binary Search
 
 - // is the floor division : 15//2 , output= 7
@@ -339,27 +414,26 @@ def twoSum(numbers, target):
   mid = (high +low) // 2
 
 ```python
-def binary_search(arr, target):
-    left, right = 0, len(arr) - 1
+def find_the_insertion_index(nums: List[int], target: int) -> int:
+    left, right = 0, len(nums)
 
-    while left <= right:
-        mid = (left + right) // 2  # Middle index
-
-        if arr[mid] == target:
-            return mid  # Element found
-        elif arr[mid] < target:
-            left = mid + 1  # Search in right half
+    while left < right:
+        mid = (left + right) // 2
+        # If the midpoint value is greater than or equal to the target,
+        # the lower bound is either at the midpoint, or to the left of it.
+        if nums[mid] >= target:
+            right = mid
+        # The midpoint value is less than the target,
+        # lower bound is somewhere to the right.
         else:
-            right = mid - 1  # Search in left half
+            left = mid + 1
 
-    return -1  # Element not found
+    return left
 
-# Example Usage
-arr = [10, 20, 30, 40, 50, 60, 70]
-target = 40
-print(binary_search(arr, target))  # Output: 3 (index of 40)
 
 ```
+
+---
 
 # Stack
 
@@ -381,6 +455,8 @@ if node.next == val:
 dummy = ListNode()
 tail = dummy
 ```
+
+---
 
 # Sliding window
 
@@ -486,6 +562,8 @@ class Solution:
 
 ```
 
+---
+
 # Trees
 
 ### BFS
@@ -539,6 +617,8 @@ class Solution:
 
 ```
 
+---
+
 # Sort
 
 ## Selection sort
@@ -578,6 +658,8 @@ print(Fibonacci(9))
 
 ```
 
+---
+
 ## Hashing
 
 ### Problem 1:
@@ -610,7 +692,30 @@ class Solution:
         return True
 ```
 
+---
+
 ## Kandane Algorithn
+
+#### Problem 1: local and global res
+
+https://leetcode.com/problems/max-consecutive-ones/
+
+```python
+class Solution:
+    def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
+        gres = 0
+        res = 0
+        for i in range(len(nums)):
+            if nums[i] == 0:
+                res = 0
+            else:
+                res = res +1
+                gres = max(res, gres)
+            # print(i , res, gres)
+        return gres
+```
+
+##### Problem 2 :
 
 https://neetcode.io/courses/advanced-algorithms/0
 
@@ -659,4 +764,206 @@ def kadane(arr):
         max_so_far = max(max_so_far, max_ending_here)
     return max_so_far
 
+```
+
+# Graph Algo
+
+---
+
+## Monotonic List Algo
+
+### 🛠 **Common Use Cases**
+
+1.  **Next Greater Element** (NGE)
+2.  **Next Smaller Element** (NSE)
+3.  **Previous Greater Element** (PGE)
+4.  **Previous Smaller Element** (PSE)
+5.  **Largest Rectangle in Histogram** (Leetcode #84)
+6.  **Trapping Rain Water** (Leetcode #42)
+7.  **Stock Span Problem** (Leetcode #901)
+8.  **Daily Temperatures** (Leetcode #739)
+
+### 📝 Example Problem:
+
+Given:
+
+```python
+nums = [2, 1, 3, 2, 4]
+```
+
+Find the **next greater element to the right** for each element. If none exists, return -1.
+
+Expected output:
+
+```
+[3, 3, 4, 4, -1]
+```
+
+---
+
+### ✅ Solution (Reverse Loop):
+
+We’ll use a **decreasing monotonic stack** that maintains elements in **decreasing order from top to bottom**. When we move from right to left:
+
+- If the stack top is **less than or equal to** the current element, pop it (it cannot be the next greater for current).
+- The **top of the stack** (if any) is the next greater element.
+- Push the current element to the stack.
+
+Here’s the code:
+
+```python
+def next_greater_element(nums):
+    n = len(nums)
+    res = [-1] * n
+    stack = []
+
+    for i in range(n - 1, -1, -1):
+        while stack and stack[-1] <= nums[i]:
+            stack.pop()
+        if stack:
+            res[i] = stack[-1]
+        stack.append(nums[i])
+    return res
+
+# Test
+nums = [2, 1, 3, 2, 4]
+print(next_greater_element(nums))  # Output: [3, 3, 4, 4, -1]
+```
+
+#### 🔎 Explanation:
+
+✅ **Reverse Iteration**: We start from the **last element** and go to the **first**.  
+✅ **Stack**: Holds potential next greater elements (to the right of the current index).  
+✅ **Pop**: Remove all elements from the stack **less than or equal to the current element**, because they **cannot** be the next greater element for the current.  
+✅ **Top of Stack**: If stack is non-empty, it’s the next greater element.  
+✅ **Push**: Always push the current element to the stack for the next iteration.
+
+⏳ **Time Complexity**: **O(n)** (Each element is pushed and popped once)  
+💾 **Space Complexity**: **O(n)** (Stack storage)
+
+---
+
+## Dijkstra Algo
+
+- sometimes we can use normal que instead heapq
+
+```python
+import heapq
+import sys
+
+# Function to construct adjacency
+def constructAdj(edges, V):
+
+    # adj[u] = list of [v, wt]
+    adj = [[] for _ in range(V)]
+
+    for edge in edges:
+        u, v, wt = edge
+        adj[u].append([v, wt])
+        adj[v].append([u, wt])
+
+    return adj
+
+# Returns shortest distances from src to all other vertices
+def dijkstra(V, edges, src):
+    # Create adjacency list
+    adj = constructAdj(edges, V)
+
+    # Create a priority queue to store vertices that
+    # are being preprocessed.
+    pq = []
+
+    # Create a list for distances and initialize all
+    # distances as infinite
+    dist = [sys.maxsize] * V
+
+    # Insert source itself in priority queue and initialize
+    # its distance as 0.
+    heapq.heappush(pq, [0, src])
+    dist[src] = 0
+
+    # Looping till priority queue becomes empty (or all
+    # distances are not finalized)
+    while pq:
+        # The first vertex in pair is the minimum distance
+        # vertex, extract it from priority queue.
+        u = heapq.heappop(pq)[1]
+
+        # Get all adjacent of u.
+        for x in adj[u]:
+            # Get vertex label and weight of current
+            # adjacent of u.
+            v, weight = x[0], x[1]
+
+            # If there is shorter path to v through u.
+            if dist[v] > dist[u] + weight:
+                # Updating distance of v
+                dist[v] = dist[u] + weight
+                heapq.heappush(pq, [dist[v], v])
+
+    # Return the shortest distance array
+    return dist
+
+# Driver program to test methods of graph class
+if __name__ == "__main__":
+    V = 5
+    src = 0
+
+    # edge list format: {u, v, weight}
+    edges =[[0, 1, 4], [0, 2, 8], [1, 4, 6], [2, 3, 2], [3, 4, 10]];
+
+    result = dijkstra(V, edges, src)
+
+    # Print shortest distances in one line
+    print(' '.join(map(str, result)))
+
+```
+
+---
+
+## Bellman ford algo
+
+### 🔍 Key Features
+
+- Works on **directed or undirected** graphs.
+- Can handle **negative weights**.
+- Detects **negative weight cycles** (a cycle whose total weight is negative).
+- Time Complexity: **O(V × E)** where V = number of vertices and E = number of edges.
+
+```python
+def bellman_ford(graph, V, E, src):
+    # Step 1: Initialize distances
+    dist = [float("inf")] * V
+    dist[src] = 0
+
+    # Step 2: Relax edges V - 1 times
+    for _ in range(V - 1):
+        for u, v, w in graph:
+            if dist[u] != float("inf") and dist[u] + w < dist[v]:
+                dist[v] = dist[u] + w
+
+    # Step 3: Check for negative-weight cycles
+    for u, v, w in graph:
+        if dist[u] != float("inf") and dist[u] + w < dist[v]:
+            print("Graph contains a negative weight cycle")
+            return
+
+    print("Vertex Distance from Source")
+    for i in range(V):
+        print(f"{i}\t\t{dist[i]}")
+
+V = 5  # Number of vertices
+E = 8  # Number of edges
+graph = [
+    (0, 1, -1),
+    (0, 2, 4),
+    (1, 2, 3),
+    (1, 3, 2),
+    (1, 4, 2),
+    (3, 2, 5),
+    (3, 1, 1),
+    (4, 3, -3)
+]
+
+bellman_ford(graph, V, E, 0)
 ```
