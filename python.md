@@ -79,6 +79,17 @@ thisset = set(("apple", "banana", "cherry"))
 thisset.add("orange")
 ```
 
+### Count frequency of characters in a string
+
+```python
+s = "banana"
+
+count = {}
+for ch in s:
+    count[ch] = count.get(ch, 0) + 1
+
+```
+
 # OOPS concepts
 
 - Abstraction

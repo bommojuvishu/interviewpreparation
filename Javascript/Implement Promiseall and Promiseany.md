@@ -1,6 +1,6 @@
 ## Prompt:
 
-promiseAny custom code
+Implementation promiseAny
 
 ## Response:
 
@@ -40,7 +40,7 @@ async function promiseAny(iterable) {
           rejectedCount++;
           if (rejectedCount === total) {
             reject(
-              new AggregateError(rejections, "All promises were rejected")
+              new AggregateError(rejections, "All promises were rejected"),
             );
           }
         });
@@ -56,7 +56,7 @@ async function promiseAny(iterable) {
 ```js
 const p1 = Promise.reject("error 1");
 const p2 = new Promise((resolve) =>
-  setTimeout(() => resolve("success 2"), 100)
+  setTimeout(() => resolve("success 2"), 100),
 );
 const p3 = Promise.reject("error 3");
 
