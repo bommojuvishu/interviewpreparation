@@ -7,6 +7,7 @@
 
 ## Prompt:
 how does timeout variable work in below 
+```js
 export default function debounce(func, wait) {
   let timeout;
   console.log("timeout",timeout)
@@ -18,6 +19,7 @@ export default function debounce(func, wait) {
         
     };
 }
+```
 
 ## Response:
 In the `debounce` function you provided, the `timeout` variable is used to control when the `func` (the function you want to debounce) is executed.

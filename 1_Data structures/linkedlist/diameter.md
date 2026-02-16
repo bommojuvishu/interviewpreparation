@@ -35,15 +35,15 @@ class Solution:
             right = diameter(node.right, res)
 
             # Update the maximum diameter encountered so far
-            res[0] = max(res[0], left + right)
+            res = max(res, left + right)
 
             # Return the depth of the current node
             return max(left, right) + 1
 
         # Initialize a list to hold the maximum diameter encountered
-        res = [0]
+        res = 0
         # Call the diameter function starting from the root
         diameter(root, res)
         # Return the maximum diameter encountered
-        return res[0]
+        return res
 ```
