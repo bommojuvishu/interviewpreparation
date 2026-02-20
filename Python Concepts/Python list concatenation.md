@@ -1,11 +1,5 @@
 # Python list concatenation
 
-**User:** Bommoju Vishwanath (bommojuvishu@gmail.com)  
-**Created:** 8/24/2025 16:39  
-**Updated:** 8/24/2025 16:42  
-**Exported:** 8/24/2025 16:42  
-**Link:** [https://chatgpt.com/c/68aaf2f6-60a0-8326-96cf-2268272f5a67](https://chatgpt.com/c/68aaf2f6-60a0-8326-96cf-2268272f5a67)
-
 ## Prompt:
 
 Python list concatenation trick
