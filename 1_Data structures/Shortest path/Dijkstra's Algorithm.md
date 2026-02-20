@@ -1,15 +1,12 @@
 # Dijkstra's Algorithm Explanation
 
-**User:** Bommoju Vishwanath (bommojuvishu@gmail.com)  
-**Created:** 4/3/2025 22:42  
-**Updated:** 4/3/2025 22:46  
-**Exported:** 4/3/2025 23:01
-
-## Response:
-
 Dijkstra's algorithm is a **graph search algorithm** used to find the **shortest path** from a **single source vertex** to all other vertices in a **weighted graph** with **non-negative edge weights**.
 
 ---
+
+## GFG Link
+
+https://www.geeksforgeeks.org/dsa/dijkstras-shortest-path-algorithm-greedy-algo-7/
 
 ## **How It Works**
 
@@ -25,7 +22,6 @@ Dijkstra's algorithm is a **graph search algorithm** used to find the **shortest
 
 - **Using a simple array**: $O(V^2)$
 - **Using a priority queue (Min-Heap)**: $O((V + E) \log V)$ , where:
-
   - $V$ is the number of vertices
 
   - $E$ is the number of edges
@@ -38,58 +34,33 @@ Dijkstra's algorithm is a **graph search algorithm** used to find the **shortest
 import heapq
 import sys
 
-# Function to construct adjacency
 def constructAdj(edges, V):
-
-    # adj[u] = list of [v, wt]
     adj = [[] for _ in range(V)]
-
-    for edge in edges:
-        u, v, wt = edge
-        adj[u].append([v, wt])
-        adj[v].append([u, wt])
-
+    for u, v, wt in edges:
+        adj[u].append((v, wt))
     return adj
 
-# Returns shortest distances from src to all other vertices
 def dijkstra(V, edges, src):
-    # Create adjacency list
     adj = constructAdj(edges, V)
-
-    # Create a priority queue to store vertices that
-    # are being preprocessed.
-    pq = []
-
-    # Create a list for distances and initialize all
-    # distances as infinite
     dist = [sys.maxsize] * V
-
-    # Insert source itself in priority queue and initialize
-    # its distance as 0.
-    heapq.heappush(pq, [0, src])
     dist[src] = 0
 
-    # Looping till priority queue becomes empty (or all
-    # distances are not finalized)
+    pq = [(0, src)]
+
     while pq:
-        # The first vertex in pair is the minimum distance
-        # vertex, extract it from priority queue.
-        u = heapq.heappop(pq)[1]
+        d, u = heapq.heappop(pq)
 
-        # Get all adjacent of u.
-        for x in adj[u]:
-            # Get vertex label and weight of current
-            # adjacent of u.
-            v, weight = x[0], x[1]
+        # Skip stale entries
+        if d > dist[u]:
+            continue
 
-            # If there is shorter path to v through u.
-            if dist[v] > dist[u] + weight:
-                # Updating distance of v
-                dist[v] = dist[u] + weight
-                heapq.heappush(pq, [dist[v], v])
+        for v, weight in adj[u]:
+            if dist[v] > d + weight:
+                dist[v] = d + weight
+                heapq.heappush(pq, (dist[v], v))
 
-    # Return the shortest distance array
     return dist
+
 
 # Driver program to test methods of graph class
 if __name__ == "__main__":
@@ -156,9 +127,7 @@ Find the **shortest path** from **A** to all other nodes.
 ## **Step-by-Step Execution**
 
 1.  **Initialization**
-
     - Start at **A**. Set:
-
       - `distance(A) = 0` (starting point)
       - `distance(B) = ∞`
       - `distance(C) = ∞`
@@ -170,15 +139,12 @@ Find the **shortest path** from **A** to all other nodes.
 ---
 
 2.  **Processing Node A (Smallest Distance)**
-
     - Current node = **A** (distance `0`)
     - Visit its neighbors:
-
       - **B**: `distance(A) + weight(A → B) = 0 + 1 = 1`
       - **C**: `distance(A) + weight(A → C) = 0 + 4 = 4`
 
     - Update distances:
-
       - `distance(B) = 1`
       - `distance(C) = 4`
 
@@ -189,16 +155,13 @@ Find the **shortest path** from **A** to all other nodes.
 ---
 
 3.  **Processing Node B**
-
     - Current node = **B** (distance `1`)
     - Visit its neighbors:
-
       - **A** (already visited, ignore)
       - **C**: `distance(B) + weight(B → C) = 1 + 2 = 3` (update, since `3 < 4`)
       - **D**: `distance(B) + weight(B → D) = 1 + 5 = 6`
 
     - Update distances:
-
       - `distance(C) = 3`
       - `distance(D) = 6`
 
@@ -209,16 +172,13 @@ Find the **shortest path** from **A** to all other nodes.
 ---
 
 4.  **Processing Node C**
-
     - Current node = **C** (distance `3`)
     - Visit its neighbors:
-
       - **A** (ignore)
       - **B** (ignore)
       - **D**: `distance(C) + weight(C → D) = 3 + 1 = 4` (update, since `4 < 6`)
 
     - Update distances:
-
       - `distance(D) = 4`
 
     - Add `(4, D)` to the priority queue.
@@ -228,10 +188,8 @@ Find the **shortest path** from **A** to all other nodes.
 ---
 
 5.  **Processing Node D**
-
     - Current node = **D** (distance `4`)
     - Visit its neighbors:
-
       - **B** (ignore)
       - **C** (ignore)
 
