@@ -1,10 +1,6 @@
 # Python Context Managers
 
-**User:** Bommoju Vishwanath (bommojuvishu@gmail.com)  
-**Created:** 2/6/2026 8:04:10  
-**Updated:** 2/6/2026 8:04:32  
-**Exported:** 2/6/2026 8:11:40  
-**Link:** [https://chatgpt.com/c/69855320-d4e4-8322-a045-45be3c6b0d73](https://chatgpt.com/c/69855320-d4e4-8322-a045-45be3c6b0d73)  
+
 
 ## Prompt:
 python contextmanager

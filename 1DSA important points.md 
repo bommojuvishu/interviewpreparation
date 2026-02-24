@@ -1,0 +1,300 @@
+# Tips from problem solving 
+
+- check in the if or while loop do I need to include the  >= or only > 
+- create empty array as follows  
+```py
+[]*lenofdata
+```
+- Dry run the problem with the inputs 
+- Infinity 
+```py
+temp = float('inf')
+```
+
+
+
+## For loop 
+
+range(start, stop, step)
+
+- range(len(arr))
+- range(3, 6)
+- range(3, 20, 2) #
+
+```python
+for i in range(n-1, -1, -1):
+    print(arr[i])
+
+```
+
+nested loops that starts from the parent loop value 
+```python
+for i in range(x):
+        for j in range(i+1, x):
+            for k in range(j+1,x):
+                if i < j < k and  nums[i] < nums[j]< nums[k]:
+                    print(nums[i]  , nums[j] ,  nums[k]) 
+                    return True
+```
+
+
+## join
+
+```python
+text = ['Python', 'is', 'a', 'fun', 'programming', 'language']
+# join elements of text with space
+print(' '.join(text))
+```
+
+string split,join
+```py
+string.split(' ')
+' '.join(list_string)
+```
+
+## Heapify 
+```
+# importing "heapq" to implement heap queue
+import heapq
+
+# initializing list
+li = [5, 7, 9, 1, 3]
+
+# using heapify to convert list into heap
+heapq.heapify(li)
+
+# printing created heap
+print("The created heap is : ", end="")
+print(list(li))
+
+# using heappush() to push elements into heap
+# pushes 4
+heapq.heappush(li, 4)
+
+# printing modified heap
+print("The modified heap after push is : ", end="")
+print(list(li))
+
+# using heappop() to pop smallest element
+print("The popped and smallest element is : ", end="")
+print(heapq.heappop(li))
+```
+
+# Pattern 
+Post processing : always the prev value should last in the processing 
+
+```py
+nums = [1,2,3,4]
+n = len(nums)
+answer = [1] * n
+        
+# Step 1: Build prefix products
+prefix = 1
+for i in range(n):
+    answer[i] = prefix
+    prefix *= nums[i]  # prefix is the current value but we are storing the answer in the next iteration
+#Output
+[1, 1, 2, 6]
+[]
+```
+If we just change the order , it will become  current processing 
+```py
+prefix = 1
+for i in range(n):
+    prefix *= nums[i]
+    answer[i] = prefix # changed the order 
+
+# Output 
+[1, 2, 6, 24]
+```
+
+# Sliding Window
+
+### Fixed sliding Window template 
+
+```py
+left = right = 0
+while right < n:
+    # If the window has reached the expected fixed length, we slide
+    # the window (move both left and right).
+    if right - left + 1 == fixed_window_size:
+        # Process the current window.
+        result = process_current_window()
+        left += 1
+    right += 1
+
+```
+Note: Always following condition should be at the bottom 
+```
+    left += 1
+right += 1
+```
+### Dynamic Sliding window template 
+
+```py
+left = right = 0
+while right < n:
+    # While the condition is violated, the window is invalid, so
+
+    # shrink the window by advancing the left pointer.
+    while condition is violated:
+        left += 1
+
+    # Once the window is valid, process it and then expand the window
+    # by advancing the right pointer.
+    result = process_current_window()
+    right += 1
+
+```
+
+# Linked List 
+
+### Accessing the previous in the linked list 
+
+
+
+```py
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def deleteMiddle(self, head):
+        if head is None or head.next is None: return None
+        slow=head
+        fast=head
+        prev=slow
+
+        while fast and fast.next:
+            fast=fast.next.next
+            prev=slow # accessing the prev one 
+            slow=slow.next
+        
+        prev.next=slow.next
+        return head
+```
+
+### Reverse the linked list 
+- *** here we are not pointing the prev to the head , the intuition is we are creating new linked list starting from the prev pointer ***
+- we return previous finally 
+
+```py
+# ❌ this is wrong 
+prev = ListNode(None) 
+prev.next = head
+```
+
+- correct
+
+```py
+class Solution(object):
+    def reverseList(self, head):
+        prev = None
+        curr = head
+        while curr:
+            nxt = curr.next
+            curr.next = prev
+            prev = curr
+            curr = nxt
+        
+        return prev
+```
+
+# Binary Search 
+
+The // operator in Python is floor division.
+It divides two numbers and returns the largest integer less than or equal to the result (i.e., it rounds down, not toward zero).
+```py
+10 // 3
+
+# Normal division:
+10 / 3 = 3.333...
+
+# Floor division
+10 // 3 = 3
+
+```
+
+# BFS
+- **Always pop(0) , not pop()**
+```py
+from collections import deque
+
+def bfs_tree(root):
+    if not root:
+        return
+
+    queue = []
+    level_number = 0
+
+    while queue:
+        level_size = len(queue)
+        level_number += 1
+
+        # Optional: collect level-specific data
+        level_sum = 0
+        level_nodes = []
+
+        for _ in range(level_size):
+            node = queue.pop(0)
+
+            # ---- Process current node ----
+            level_sum += node.val
+            level_nodes.append(node.val)
+
+            # ---- Add children ----
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+
+        # ---- After finishing one level ----
+        print(f"Level {level_number}: {level_nodes}, Sum = {level_sum}")
+```
+
+
+### insert at the index 
+ ❌ don't use the following , while calculating the mid we are taking the floor 
+- **it will lead to INFINITE loop**
+ ```
+if target >=  nums[mid]:
+    l = mid
+else:
+    r = mid + 1
+```
+**Correct**
+
+```py
+def searchInsert(nums, target):
+    l, r = 0, len(nums)   # notice r = len(nums)
+
+    while l < r:
+        mid = (l + r) // 2
+
+        if nums[mid] >= target:
+            r = mid
+        else:
+            l = mid + 1
+
+    return l
+```
+
+
+🧠 Key Mental Model
+
+
+There are only two questions:
+
+1️⃣ Are you searching for exact match?
+
+→ Use while l <= r
+→ Use mid ± 1
+    - left = mid +1 
+    - right = right -1
+
+2️⃣ Are you searching for boundary of monotonic condition?
+
+→ Use while l < r
+→ Keep mid if valid
+→ Remove only what is impossible
