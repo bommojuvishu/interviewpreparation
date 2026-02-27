@@ -1,11 +1,3 @@
-Good — this is where interviews get practical.
-
-If you already understand threading vs multiprocessing, the **clean production answer** in Python is usually:
-
-> “I’d use `concurrent.futures` unless I need very low-level control.”
-
-Because it gives a **high-level, uniform API** over both threads and processes.
-
 ---
 
 # 🔹 What `concurrent.futures` Solves

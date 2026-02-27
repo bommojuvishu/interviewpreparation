@@ -159,21 +159,21 @@ console.log(Object.keys(jsonObj));
 
 # String methods
 
-- length
+- length (Same as Array method)
 
 ```javascript
 let text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 let length = text.length;
 ```
 
-- charAt
+- charAt (Same as Array method)
 
 ```javascript
 let text = "HELLO WORLD";
 let char = text.charAt(0);
 ```
 
-- indexOf
+- indexOf (Same as Array method)
 
 ```javascript
 let text = "Please locate where 'locate' occurs!";

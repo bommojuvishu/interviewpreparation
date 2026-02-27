@@ -17,6 +17,7 @@ function Button() {
         color: "white",
         padding: "10px",
         borderRadius: "5px",
+        margin: "5px",
       }}
     >
       Click Me
