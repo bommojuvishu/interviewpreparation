@@ -1,4 +1,4 @@
-TDZ = **Temporal Dead Zone**
+# TDZ - Temporal Dead Zone
 
 It’s not about time in seconds.  
 It’s about **execution order during scope creation**.

@@ -91,7 +91,29 @@ function flatten(arr) {
 }
 ```
 
----
+### How the result stores the solution (Closure Concept)
+
+process() remembers variables from the parent scope
+
+```js
+function classNames() {
+   const result = []
+
+   function process() {
+      result.push(...)
+   }
+}
+```
+
+Even when recursion happens:
+
+```
+process()
+  → process()
+      → process()
+```
+
+## they all share the same result reference in memory.
 
 ### ✅ Solution 2: Using Stack (Iterative)
 
@@ -111,4 +133,17 @@ function flatten(arr) {
 
   return result.reverse(); // Because we used stack (LIFO)
 }
+```
+
+---
+
+## Python version
+
+```py
+def flatten(arr, result):
+    for item in arr:
+        if isinstance(item, list):
+            flatten(item, result)   # recursion
+        else:
+            result.append(item)
 ```
