@@ -881,10 +881,6 @@ jonas.greet();
 jonas.calcAge();
 ```
 
-## Scope chaining
-
-refer the keep note
-
 ## Higher-order functions
 
 Higher-order functions are functions that operate on other functions by either taking them as arguments or returning them as results.
