@@ -4,20 +4,21 @@
 **Created:** 2/14/2026 8:49:32  
 **Updated:** 2/14/2026 9:01:20  
 **Exported:** 2/14/2026 9:03:26  
-**Link:** [https://chatgpt.com/c/698fe9c2-d990-8321-a2cc-4fe5822820dd](https://chatgpt.com/c/698fe9c2-d990-8321-a2cc-4fe5822820dd)  
+**Link:** [https://chatgpt.com/c/698fe9c2-d990-8321-a2cc-4fe5822820dd](https://chatgpt.com/c/698fe9c2-d990-8321-a2cc-4fe5822820dd)
 
 ## Prompt:
+
 Kadane's Algorithm
 
 ## Response:
-Kadane’s Algorithm (Maximum Subarray Sum)
------------------------------------------
+
+## Kadane’s Algorithm (Maximum Subarray Sum)
 
 Kadane’s Algorithm finds the **maximum sum of any contiguous subarray** in linear time.
 
 This is one of those problems where brute force looks simple—but kills performance. The optimized insight is what matters.
 
-* * *
+---
 
 ### 🔹 The Core Idea
 
@@ -35,7 +36,7 @@ max_sum = max(max_sum, current_sum)
 
 That’s it.
 
-* * *
+---
 
 ### 🔹 Why It Works
 
@@ -45,7 +46,7 @@ So we reset.
 
 It’s a greedy local decision — but mathematically sound because a negative prefix can never help a future maximum.
 
-* * *
+---
 
 ### 🔹 Example
 
@@ -63,7 +64,7 @@ Best subarray:
 
 Sum = **6**
 
-* * *
+---
 
 ### 🔹 Python Implementation
 
@@ -82,10 +83,9 @@ def max_subarray(nums):
 **Time Complexity:** O(n)  
 **Space Complexity:** O(1)
 
-* * *
+---
 
-⚠️ Important Edge Case
-----------------------
+## ⚠️ Important Edge Case
 
 If all numbers are negative, Kadane still works — because we initialize with `nums[0]`.
 
@@ -97,16 +97,15 @@ Example:
 
 Answer = `-2`
 
-* * *
+---
 
-🔹 Strategic Insight (Interview Angle)
---------------------------------------
+## 🔹 Strategic Insight (Interview Angle)
 
 When you see:
 
-*   "maximum contiguous subarray"
-*   "largest sum segment"
-*   "continuous sequence"
+- "maximum contiguous subarray"
+- "largest sum segment"
+- "continuous sequence"
 
 Think:
 
@@ -114,26 +113,28 @@ Think:
 
 This same pattern appears in:
 
-*   Maximum product subarray (variation)
-*   Stock buy-sell (single transaction)
-*   DP optimization problems
+- Maximum product subarray (variation)
+- Stock buy-sell (single transaction)
+- DP optimization problems
 
-* * *
+---
 
 If you want, I can:
 
-*   Derive it from brute force → DP → optimized
-*   Show dry run step by step
-*   Extend it to return the actual subarray
-*   Explain 2D Kadane (matrix version)
-*   Connect it to stock buy/sell logic
+- Derive it from brute force → DP → optimized
+- Show dry run step by step
+- Extend it to return the actual subarray
+- Explain 2D Kadane (matrix version)
+- Connect it to stock buy/sell logic
 
 Your move.
 
 ## Prompt:
+
 Show dry run step by step
 
 ## Response:
+
 Let’s walk it properly — not just mechanically, but with reasoning at each step.
 
 We’ll use the classic input:
@@ -144,18 +145,17 @@ We’ll use the classic input:
 
 We track two things:
 
-*   `current_sum` → best subarray **ending at this index**
-*   `max_sum` → best subarray seen **so far**
+- `current_sum` → best subarray **ending at this index**
+- `max_sum` → best subarray seen **so far**
 
-* * *
+---
 
-Step-by-Step Dry Run
---------------------
+## Step-by-Step Dry Run
 
-| Index | Value | Decision | current\_sum | max\_sum |
-| --- | --- | --- | --- | --- |
+| Index | Value | Decision | current_sum | max_sum |
+| ----- | ----- | -------- | ----------- | ------- |
 
-* * *
+---
 
 ### 🔹 Step 0
 
@@ -163,12 +163,12 @@ Step-by-Step Dry Run
 
 Initialize:
 
-*   `current_sum = -2`
-*   `max_sum = -2`
+- `current_sum = -2`
+- `max_sum = -2`
 
 | 0 | -2 | start | -2 | -2 |
 
-* * *
+---
 
 ### 🔹 Step 1
 
@@ -179,14 +179,14 @@ Option 2: Start fresh → `1`
 
 Better to start fresh.
 
-*   `current_sum = 1`
-*   `max_sum = 1`
+- `current_sum = 1`
+- `max_sum = 1`
 
 | 1 | 1 | restart | 1 | 1 |
 
 **Insight:** negative prefix hurt us.
 
-* * *
+---
 
 ### 🔹 Step 2
 
@@ -197,14 +197,14 @@ Restart → `-3`
 
 Better to extend.
 
-*   `current_sum = -2`
-*   `max_sum = 1`
+- `current_sum = -2`
+- `max_sum = 1`
 
 | 2 | -3 | extend | -2 | 1 |
 
 Note: sum became negative → future danger.
 
-* * *
+---
 
 ### 🔹 Step 3
 
@@ -215,14 +215,14 @@ Restart → `4`
 
 Restart wins.
 
-*   `current_sum = 4`
-*   `max_sum = 4`
+- `current_sum = 4`
+- `max_sum = 4`
 
 | 3 | 4 | restart | 4 | 4 |
 
 This is where the optimal subarray begins.
 
-* * *
+---
 
 ### 🔹 Step 4
 
@@ -233,12 +233,12 @@ Restart → `-1`
 
 Extend wins.
 
-*   `current_sum = 3`
-*   `max_sum = 4`
+- `current_sum = 3`
+- `max_sum = 4`
 
 | 4 | -1 | extend | 3 | 4 |
 
-* * *
+---
 
 ### 🔹 Step 5
 
@@ -249,12 +249,12 @@ Restart → `2`
 
 Extend wins.
 
-*   `current_sum = 5`
-*   `max_sum = 5`
+- `current_sum = 5`
+- `max_sum = 5`
 
 | 5 | 2 | extend | 5 | 5 |
 
-* * *
+---
 
 ### 🔹 Step 6
 
@@ -265,14 +265,14 @@ Restart → `1`
 
 Extend wins.
 
-*   `current_sum = 6`
-*   `max_sum = 6`
+- `current_sum = 6`
+- `max_sum = 6`
 
 | 6 | 1 | extend | 6 | 6 |
 
 Now we have the best sum so far: **6**
 
-* * *
+---
 
 ### 🔹 Step 7
 
@@ -283,14 +283,14 @@ Restart → `-5`
 
 Extend wins.
 
-*   `current_sum = 1`
-*   `max_sum = 6`
+- `current_sum = 1`
+- `max_sum = 6`
 
 | 7 | -5 | extend | 1 | 6 |
 
 Notice: still positive → so we keep it.
 
-* * *
+---
 
 ### 🔹 Step 8
 
@@ -301,15 +301,14 @@ Restart → `4`
 
 Extend wins.
 
-*   `current_sum = 5`
-*   `max_sum = 6`
+- `current_sum = 5`
+- `max_sum = 6`
 
 | 8 | 4 | extend | 5 | 6 |
 
-* * *
+---
 
-Final Answer
-------------
+## Final Answer
 
 ```
 max_sum = 6
@@ -321,15 +320,14 @@ Subarray was:
 [4, -1, 2, 1]
 ```
 
-* * *
+---
 
-🔎 What’s Actually Happening Conceptually?
-------------------------------------------
+## 🔎 What’s Actually Happening Conceptually?
 
 At every index:
 
-*   If previous sum is **positive**, carry it.
-*   If previous sum is **negative**, discard it.
+- If previous sum is **positive**, carry it.
+- If previous sum is **negative**, discard it.
 
 That’s the entire philosophy.
 
@@ -339,10 +337,9 @@ Mathematically:
 current_sum = max(nums[i], current_sum + nums[i])
 ```
 
-* * *
+---
 
-🔥 Interview-Level Insight
---------------------------
+## 🔥 Interview-Level Insight
 
 The real DP meaning:
 
@@ -357,17 +354,45 @@ dp[i] = max(nums[i], nums[i] + dp[i-1])
 
 Kadane is just space-optimized DP.
 
-* * *
-
-If you want to go deeper:
-
-*   Want me to show how to return the actual subarray?
-*   Want to see how this connects to Stock Buy-Sell?
-*   Or see the 2D matrix Kadane version?
-
-Pick the direction.
-
-
+---
 
 ---
-Powered by [ChatGPT Exporter](https://www.chatgptexporter.com)
+
+### ✅ **Code (JavaScript)**
+
+```js
+function kadaneWithSubarray(arr) {
+  let maxEndingHere = arr[0];
+  let maxSoFar = arr[0];
+  let start = 0,
+    end = 0,
+    s = 0;
+
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] > maxEndingHere + arr[i]) {
+      maxEndingHere = arr[i];
+      s = i; // potential new subarray start
+    } else {
+      maxEndingHere += arr[i];
+    }
+
+    if (maxEndingHere > maxSoFar) {
+      maxSoFar = maxEndingHere;
+      start = s;
+      end = i;
+    }
+  }
+
+  const subarray = arr.slice(start, end + 1);
+  return {
+    maxSum: maxSoFar,
+    subarray,
+  };
+}
+
+// Example
+const arr = [-2, 1, -3, 4, -1, 2, 1, -5, 4];
+const result = kadaneWithSubarray(arr);
+console.log("Max Sum:", result.maxSum); // Output: 6
+console.log("Subarray:", result.subarray); // Output: [4, -1, 2, 1]
+```

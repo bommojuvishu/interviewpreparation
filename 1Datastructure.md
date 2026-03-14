@@ -9,10 +9,6 @@
 - Brute force -> Better -> Optimal : don't code the optimal directly , talk to the interviewer , get the inputs
 - start with the smaller test case
 
-- Analyse visually
-  - https://leetcode.com/problems/longest-consecutive-sequence/description/
-  - https://www.youtube.com/watch?v=P6RZZMu_maU
-
 ---
 
 # Shortcut
@@ -46,7 +42,6 @@
   - string.split(' ')
   - ' '.join(list_string)
 - range(start, stop, step)
-
   - range(len(arr)
   - range(3 , 6)
   - range(len(arr), 0 , -1) // in reverse
@@ -365,20 +360,6 @@ https://leetcode.com/problems/squares-of-a-sorted-array/description/
         return sorted(nums)
 ```
 
-### findKthLargest
-
-https://leetcode.com/problems/kth-largest-element-in-an-array/description/
-
-```python
-    def findKthLargest(self, nums: List[int], k: int) -> int:
-        li = [x for x in nums]
-        heapq.heapify(li)
-        print(li)
-        while len(li) > k:
-            heapq.heappop(li)
-        return li[0]
-```
-
 # Two pointer approach
 
 Testcase :
@@ -660,40 +641,6 @@ print(Fibonacci(9))
 
 ---
 
-## Hashing
-
-### Problem 1:
-
-https://leetcode.com/problems/ransom-note/description/?envType=study-plan-v2&envId=top-interview-150
-
-Given two strings ransomNote and magazine, return true if ransomNote can be constructed by using the letters from magazine and false otherwise.
-
-Each letter in magazine can only be used once in ransomNote.
-
-Example 1:
-
-Input: ransomNote = "aa", magazine = "ab"
-Output: false
-
-```python
-class Solution:
-    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
-        hash_map = {}
-
-        for i in magazine:
-            hash_map[i] = hash_map.get(i, 0) + 1
-
-        for i in ransomNote:
-            if i in hash_map and hash_map[i] != 0:
-                hash_map[i] = hash_map[i] - 1
-            else:
-                return False
-
-        return True
-```
-
----
-
 ## Kandane Algorithn
 
 #### Problem 1: local and global res
@@ -766,42 +713,9 @@ def kadane(arr):
 
 ```
 
-# Graph Algo
-
 ---
 
-## Monotonic List Algo
-
-### 🛠 **Common Use Cases**
-
-1.  **Next Greater Element** (NGE)
-2.  **Next Smaller Element** (NSE)
-3.  **Previous Greater Element** (PGE)
-4.  **Previous Smaller Element** (PSE)
-5.  **Largest Rectangle in Histogram** (Leetcode #84)
-6.  **Trapping Rain Water** (Leetcode #42)
-7.  **Stock Span Problem** (Leetcode #901)
-8.  **Daily Temperatures** (Leetcode #739)
-
-### 📝 Example Problem:
-
-Given:
-
-```python
-nums = [2, 1, 3, 2, 4]
-```
-
-Find the **next greater element to the right** for each element. If none exists, return -1.
-
-Expected output:
-
-```
-[3, 3, 4, 4, -1]
-```
-
----
-
-### ✅ Solution (Reverse Loop):
+### Monotonic (Reverse Loop):
 
 We’ll use a **decreasing monotonic stack** that maintains elements in **decreasing order from top to bottom**. When we move from right to left:
 
@@ -917,53 +831,4 @@ if __name__ == "__main__":
     # Print shortest distances in one line
     print(' '.join(map(str, result)))
 
-```
-
----
-
-## Bellman ford algo
-
-### 🔍 Key Features
-
-- Works on **directed or undirected** graphs.
-- Can handle **negative weights**.
-- Detects **negative weight cycles** (a cycle whose total weight is negative).
-- Time Complexity: **O(V × E)** where V = number of vertices and E = number of edges.
-
-```python
-def bellman_ford(graph, V, E, src):
-    # Step 1: Initialize distances
-    dist = [float("inf")] * V
-    dist[src] = 0
-
-    # Step 2: Relax edges V - 1 times
-    for _ in range(V - 1):
-        for u, v, w in graph:
-            if dist[u] != float("inf") and dist[u] + w < dist[v]:
-                dist[v] = dist[u] + w
-
-    # Step 3: Check for negative-weight cycles
-    for u, v, w in graph:
-        if dist[u] != float("inf") and dist[u] + w < dist[v]:
-            print("Graph contains a negative weight cycle")
-            return
-
-    print("Vertex Distance from Source")
-    for i in range(V):
-        print(f"{i}\t\t{dist[i]}")
-
-V = 5  # Number of vertices
-E = 8  # Number of edges
-graph = [
-    (0, 1, -1),
-    (0, 2, 4),
-    (1, 2, 3),
-    (1, 3, 2),
-    (1, 4, 2),
-    (3, 2, 5),
-    (3, 1, 1),
-    (4, 3, -3)
-]
-
-bellman_ford(graph, V, E, 0)
 ```
