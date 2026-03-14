@@ -1,7 +1,38 @@
 # Table of contents
 
-- [Linkedlist](#linkedList)
-- [My Section Title](#my-section-title)
+# Table of Contents
+
+## Strategy
+
+- [Approach](#approach)
+- [Shortcut](#shortcut)
+- [Tips](#tips)
+
+## Data Structures
+
+- [Heap](#heap)
+- [Arrays](#arrays)
+- [Two Pointer Approach](#two-pointer-approach)
+- [Sliding Window](#sliding-window)
+- [Binary Search](#binary-search)
+- [Stack](#stack)
+- [LinkedList](#linkedlist)
+- [Trees](#trees)
+- [BFS](#bfs)
+
+## Algorithms / Techniques
+
+- [Sliding Window](#sliding-window)
+- [Selection Sort](#selection-sort)
+- [Fibonacci](#fibonacci)
+- [Kadane Algorithm](#kandane-algorithn)
+- [Monotonic Stack](#monotonic-reverse-loop)
+- [Dijkstra Algorithm](#dijkstra-algo)
+
+## Patterns
+
+- [For loop](#for-loop)
+- [Post processing](#post-processing)
 
 # Approach
 
@@ -20,14 +51,26 @@
 ## Tips
 
 - use nonlocal keyword to refer the main function variable inside the nested function
-- check the data given ( if it can used as for loop condition)
+- check in the if or while loop do I need to include the >= or only >
+- create empty array as follows
+
+```py
+[]*lenofdata
+```
+
+- Dry run the problem with the inputs
+- Infinity
+
+```py
+temp = float('inf')
+```
+
 - Arrays : check if can sort the array , it may help any way
-  - str.sort() : in line , only list
+  - str.sort() : inline , only list
   - sorted(str , reverse = True) : new string , both string and list
 - Arrays/ String : remove duplicate set(str) or use dictionary { value :value}
 - Array: split a string into a list of characters
   - list("foobar") # ['f', 'o', 'o', 'b', 'a', 'r']
-- Array temp: []\*len(arr)
 - range(start, stop, step)
   - range(len(arr))
   - range(3, 6)
@@ -36,8 +79,6 @@
 - heapq for sorting
   - heapq.heapify(li) ( default ASC)
   - heapq.heappop(li)
-- problem related to in place array , try two pointer approach
-  - https://github.com/sadanandpai/dsa-interview-challenges/blob/main/problems/warmup.md#squares-of-a-sorted-array
 - string split,join
   - string.split(' ')
   - ' '.join(list_string)
@@ -50,255 +91,6 @@
 
 - Best sort algo big O : n2
 - Best search algo Big O : logn (Binary Search)
-
----
-
-# List methods
-
-- append
-
-```python
-# Adds List Element as value of List.
-List = ['Mathematics', 'chemistry', 1997, 2000]
-List.append(20544)
-print(List)
-```
-
-- insert
-
-```python
-List = ['Mathematics', 'chemistry', 1997, 2000]
-# Insert at index 2 value 10087
-List.insert(2, 10087)
-print(List)
-```
-
-- extend
-
-```python
-List1 = [1, 2, 3]
-List2 = [2, 3, 4, 5]
-# Add List2 to List1
-List1.extend(List2)
-print(List1)
-# Add List1 to List2 now
-List2.extend(List1)
-print(List2)
-```
-
-- index
-
-```python
-List = [1, 2, 3, 1, 2, 1, 2, 3, 2, 1]
-print(List.index(2))
-```
-
-- sort
-
-```python
-List = [2.3, 4.445, 3, 5.33, 1.054, 2.5]
-#Reverse flag is set True
-List.sort(reverse=True)
-#List.sort().reverse(), reverses the sorted list
-print(List)
-```
-
-- pop
-
-````python
-List = [2.3, 4.445, 3, 5.33, 1.054, 2.5]
-print(List.pop(0))
-
-# Problems
-
-## Palindrone
-
-- for palidrone , start in the mid and check left and right
-  https://leetcode.com/problems/palindromic-substrings/
-
-```python
-    def countSubstrings(self, s: str) -> int:
-        res = 0
-
-        for i in range(len(s)):
-            res += self.countPali(s, i, i)
-            res += self.countPali(s, i, i + 1)
-        return res
-
-    def countPali(self, s, l, r):
-        res = 0
-        while l >= 0 and r < len(s) and s[l] == s[r]:
-            res += 1
-            l -= 1
-            r += 1
-        return res
-````
-
----
-
-# String methods
-
-- find
-
-```python
-message = 'Python is a fun programming language'
-# check the index of 'fun'
-print(message.find('fun'))
-# Output: 12
-```
-
-- index
-
-```python
-text = 'Python is fun'
-# find the index of is
-result = text.index('is')
-print(result)
-# Output: 7
-```
-
-- join
-
-```python
-text = ['Python', 'is', 'a', 'fun', 'programming', 'language']
-# join elements of text with space
-print(' '.join(text))
-# Output: Python is a fun programming language
-```
-
-- replace
-
-```python
-text = 'bat ball'
-# replace 'ba' with 'ro'
-replaced_text = text.replace('ba', 'ro')
-print(replaced_text)
-# Output: rot roll
-```
-
-- find
-
-```python
-text = 'Python is fun'
-# split the text from space
-print(text.split())
-# Output: ['Python', 'is', 'fun']
-```
-
----
-
-## Dictionary
-
-To check whether two dictionaries or sets are equal in Python, you can use the == operator:
-Two dictionaries are equal if they have the same key-value pairs, regardless of order.
-
-```python
-dict1 = {'a': 1, 'b': 2, 'c': 3}
-dict2 = {'b': 2, 'a': 1, 'c': 3}
-
-print(dict1 == dict2)  # True (order doesn't matter in dictionaries)
-
-my_dict = {'apple': 10, 'banana': 5, 'cherry': 8}
-del my_dict['banana']
-print(my_dict)  # Output: {'apple': 10, 'cherry': 8}
-
-my_dict = {'apple': 10, 'banana': 5, 'cherry': 8}
-value = my_dict.pop('banana')
-print(value)     # Output: 5
-print(my_dict)   # Output: {'apple': 10, 'cherry': 8}
-
-# With default:
-value = my_dict.pop('orange', 0)
-print(value)     # Output: 0
-
-
-```
-
----
-
-## Sets
-
-A set in Python is an unordered collection of unique elements. It supports various operations for adding, removing, and performing set operations like union and intersection.
-it is same as dictionary but stores single value
-
-```python
-
-data = ['apple', 'banana', 'apple', 'orange', 'banana']
-unique_items = set(data)
-print(unique_items)
-# Output: {'apple', 'banana', 'orange'}
-
-
-if 'banana' in set_a:
-    print("Found banana!")
-
-#remove
-
-my_set = {1, 2, 3}
-my_set.remove(2)
-print(my_set)  # Output: {1, 3}
-
-# 🚫 Does not raise an error if the element is not present.
-my_set = {1, 2, 3}
-my_set.discard(4)  # No error even though 4 is not in the set
-print(my_set)  # Output: {1, 2, 3}
-
-```
-
-#### Equal
-
-Two sets are equal if they contain the same elements, regardless of order.
-
-```python
-set1 = {1, 2, 3}
-set2 = {3, 2, 1}
-
-print(set1 == set2)  # True (order doesn't matter in sets)
-
-```
-
-#### Example: Convert List to Set
-
-```python
-my_list = [1, 2, 3, 4, 5, 2, 3, 1]
-my_set = set(my_list)
-
-print(my_set)  # Output: {1, 2, 3, 4, 5}
-
-```
-
-### 🚀 Summary: When to Use Each?
-
-- **Use a `list` when:** You need an **ordered** collection, allow **duplicates**, or require **indexing**.
-- **Use a `set` when:** You need **unique elements** and **fast lookups** but don't care about order.
-- **Use a `dict` when:** You need to store **key-value pairs** with **fast access**.
-
----
-
-## 🔄 **\. Using `for` loop to reverse:**
-
-### Option 1: `range(start, end, step)`
-
-If you want to iterate backwards from `n-1` to `0`, you can use:
-
-```python
-for i in range(n-1, -1, -1):
-    print(i)
-```
-
-👉 Here’s what’s happening:
-
-- `start = n-1`
-- `end = -1` (exclusive, so it stops at 0)
-- `step = -1` (to decrement)
-
-Example:
-
-```python
-arr = [5, 4, 3, 2, 1]
-for i in range(len(arr)-1, -1, -1):
-    print(arr[i])
-```
 
 ---
 
@@ -360,6 +152,8 @@ https://leetcode.com/problems/squares-of-a-sorted-array/description/
         return sorted(nums)
 ```
 
+---
+
 # Two pointer approach
 
 Testcase :
@@ -382,6 +176,50 @@ def twoSum(numbers, target):
             left += 1
         else:
             right -= 1
+
+```
+
+---
+
+## Sliding Window
+
+#### Fixed sliding Window template
+
+```py
+left = right = 0
+while right < n:
+    # If the window has reached the expected fixed length, we slide
+    # the window (move both left and right).
+    if right - left + 1 == fixed_window_size:
+        # Process the current window.
+        result = process_current_window()
+        left += 1
+    right += 1
+
+```
+
+Note: Always following condition should be at the bottom
+
+```
+    left += 1
+right += 1
+```
+
+#### Dynamic Sliding window template
+
+```py
+left = right = 0
+while right < n:
+    # While the condition is violated, the window is invalid, so
+
+    # shrink the window by advancing the left pointer.
+    while condition is violated:
+        left += 1
+
+    # Once the window is valid, process it and then expand the window
+    # by advancing the right pointer.
+    result = process_current_window()
+    right += 1
 
 ```
 
@@ -414,6 +252,65 @@ def find_the_insertion_index(nums: List[int], target: int) -> int:
 
 ```
 
+The // operator in Python is floor division.
+It divides two numbers and returns the largest integer less than or equal to the result (i.e., it rounds down, not toward zero).
+
+```py
+10 // 3
+
+# Normal division:
+10 / 3 = 3.333...
+
+# Floor division
+10 // 3 = 3
+
+```
+
+### Insert at the index
+
+❌ don't use the following , while calculating the mid we are taking the floor
+
+- **it will lead to INFINITE loop**
+
+```
+if target >=  nums[mid]:
+   l = mid
+else:
+   r = mid + 1
+```
+
+**Correct**
+
+```py
+def searchInsert(nums, target):
+    l, r = 0, len(nums)   # notice r = len(nums)
+
+    while l < r:
+        mid = (l + r) // 2
+
+        if nums[mid] >= target:
+            r = mid
+        else:
+            l = mid + 1
+
+    return l
+```
+
+🧠 Key Mental Model
+
+There are only two questions:
+
+1️⃣ Are you searching for exact match?
+
+→ Use while l <= r
+→ Use mid ± 1 - left = mid +1 - right = right -1
+
+2️⃣ Are you searching for boundary of monotonic condition?
+
+→ Use while l < r
+→ Keep mid if valid
+→ Remove only what is impossible
+
 ---
 
 # Stack
@@ -421,6 +318,8 @@ def find_the_insertion_index(nums: List[int], target: int) -> int:
 - check if stack is empty or not , then check for value
   - if not stack or stack.pop() != mapp[ch]:
   - if len(arr)> 0 and ( arr[-1] == x ):
+
+---
 
 # LinkedList
 
@@ -437,52 +336,55 @@ dummy = ListNode()
 tail = dummy
 ```
 
----
+#### Accessing the previous in the linked list
 
-# Sliding window
+```py
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def deleteMiddle(self, head):
+        if head is None or head.next is None: return None
+        slow=head
+        fast=head
+        prev=slow
 
-- 2 types
-  - fixed
-  - dynamic
-- for dynamic , look for the condition that breaks and moves the left pointer to foward
-  - window can be represented as "r - l + 1" or Queue data structure
+        while fast and fast.next:
+            fast=fast.next.next
+            prev=slow # accessing the prev one
+            slow=slow.next
 
-##### Never use the list/que as the window , Using a list-based window adds overhead due to the cost of removing from the front (pop(0)) and extra space.
-
-Example :
-Longest Substring Without Repeating Characters - Explanation
-
-```python
-class Solution:
-    def lengthOfLongestSubstring(self, s: str) -> int:
-        charSet = set()
-        l = 0
-        res = 0
-
-        for r in range(len(s)):
-            while s[r] in charSet:
-                charSet.remove(s[l])
-                l += 1
-            charSet.add(s[r])
-            res = max(res, r - l + 1)
-        return res
-
+        prev.next=slow.next
+        return head
 ```
 
-### Two pointer approach
+#### Reverse the linked list
 
-    - https://leetcode.com/problems/middle-of-the-linked-list/
+- here we are not pointing the prev to the head , the intuition is we are creating new linked list starting from the prev pointer
+- we return previous finally
 
-```python
+```py
+# ❌ this is wrong
+prev = ListNode(None)
+prev.next = head
+```
 
-    def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
-      slow = fast = head
+- correct
 
-      while fast and fast.next :
-          slow = slow.next
-          fast = fast.next.next
+```py
+class Solution(object):
+    def reverseList(self, head):
+        prev = None
+        curr = head
+        while curr:
+            nxt = curr.next
+            curr.next = prev
+            prev = curr
+            curr = nxt
 
-      return slow
+        return prev
 ```
 
 ### create dummy node in linkedlist
@@ -545,6 +447,54 @@ class Solution:
 
 ---
 
+# Sliding window
+
+- 2 types
+  - fixed
+  - dynamic
+- for dynamic , look for the condition that breaks and moves the left pointer to foward
+  - window can be represented as "r - l + 1" or Queue data structure
+
+##### Never use the list/que as the window , Using a list-based window adds overhead due to the cost of removing from the front (pop(0)) and extra space.
+
+Example :
+Longest Substring Without Repeating Characters - Explanation
+
+```python
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        charSet = set()
+        l = 0
+        res = 0
+
+        for r in range(len(s)):
+            while s[r] in charSet:
+                charSet.remove(s[l])
+                l += 1
+            charSet.add(s[r])
+            res = max(res, r - l + 1)
+        return res
+
+```
+
+### Two pointer approach
+
+    - https://leetcode.com/problems/middle-of-the-linked-list/
+
+```python
+
+    def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
+      slow = fast = head
+
+      while fast and fast.next :
+          slow = slow.next
+          fast = fast.next.next
+
+      return slow
+```
+
+---
+
 # Trees
 
 ### BFS
@@ -566,6 +516,43 @@ class Solution:
       return results
 
 
+```
+
+- **Always pop(0) , not pop()**
+
+```py
+from collections import deque
+
+def bfs_tree(root):
+    if not root:
+        return
+
+    queue = []
+    level_number = 0
+
+    while queue:
+        level_size = len(queue)
+        level_number += 1
+
+        # Optional: collect level-specific data
+        level_sum = 0
+        level_nodes = []
+
+        for _ in range(level_size):
+            node = queue.pop(0)
+
+            # ---- Process current node ----
+            level_sum += node.val
+            level_nodes.append(node.val)
+
+            # ---- Add children ----
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+
+        # ---- After finishing one level ----
+        print(f"Level {level_number}: {level_nodes}, Sum = {level_sum}")
 ```
 
 ## Preorder Transversal
@@ -597,8 +584,6 @@ class Solution:
         return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
 
 ```
-
----
 
 # Sort
 
@@ -831,4 +816,48 @@ if __name__ == "__main__":
     # Print shortest distances in one line
     print(' '.join(map(str, result)))
 
+```
+
+## For loop
+
+nested loops that starts from the parent loop value
+
+```python
+for i in range(x):
+        for j in range(i+1, x):
+            for k in range(j+1,x):
+                if i < j < k and  nums[i] < nums[j]< nums[k]:
+                    print(nums[i]  , nums[j] ,  nums[k])
+                    return True
+```
+
+## Post Processing
+
+Post processing : always the prev value should last in the processing
+
+```py
+nums = [1,2,3,4]
+n = len(nums)
+answer = [1] * n
+
+# Step 1: Build prefix products
+prefix = 1
+for i in range(n):
+    answer[i] = prefix
+    prefix *= nums[i]  # prefix is the current value but we are storing the answer in the next iteration
+#Output
+[1, 1, 2, 6]
+[]
+```
+
+If we just change the order , it will become current processing
+
+```py
+prefix = 1
+for i in range(n):
+    prefix *= nums[i]
+    answer[i] = prefix # changed the order
+
+# Output
+[1, 2, 6, 24]
 ```

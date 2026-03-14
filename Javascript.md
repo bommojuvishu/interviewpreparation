@@ -8,6 +8,23 @@
 - what is memory leaking?
 - what is preflight request?
 
+# DSA
+
+#### Using `hasOwnProperty()`
+
+```js
+const obj = {
+  name: "John",
+  age: 30,
+};
+
+if (obj.hasOwnProperty("name")) {
+  console.log("Key exists");
+}
+```
+
+---
+
 ## JS important points
 
 - JavaScript evaluates expressions from left to right, considering operator precedence
