@@ -4,18 +4,19 @@
 **Created:** 2/26/2026 7:48:09  
 **Updated:** 2/26/2026 7:52:16  
 **Exported:** 2/26/2026 7:55:04  
-**Link:** [https://chatgpt.com/c/699fad49-1b50-83a9-a569-20307f9b352f](https://chatgpt.com/c/699fad49-1b50-83a9-a569-20307f9b352f)  
+**Link:** [https://chatgpt.com/c/699fad49-1b50-83a9-a569-20307f9b352f](https://chatgpt.com/c/699fad49-1b50-83a9-a569-20307f9b352f)
 
 ## Prompt:
+
 top coding javascript snippet questions for the interview
 
 ## Response:
+
 You’re preparing for serious frontend rounds (Agoda-level). So don’t just memorize snippets — understand _why they break_ and _where they fail at scale_. Below are the **high-frequency JavaScript snippet patterns** interviewers use to test depth, not syntax.
 
-* * *
+---
 
-1️⃣ Closures + `var` vs `let`
------------------------------
+## 1️⃣ Closures + `var` vs `let`
 
 ```
 for (var i = 0; i < 3; i++) {
@@ -27,8 +28,8 @@ for (var i = 0; i < 3; i++) {
 
 Why?
 
-*   `var` is function-scoped.
-*   The callback closes over the same `i`.
+- `var` is function-scoped.
+- The callback closes over the same `i`.
 
 Fix:
 
@@ -42,14 +43,13 @@ Or IIFE pattern.
 
 📌 What they're testing:
 
-*   Scope
-*   Closure memory model
-*   Event loop timing
+- Scope
+- Closure memory model
+- Event loop timing
 
-* * *
+---
 
-2️⃣ Event Loop: Microtask vs Macrotask
---------------------------------------
+## 2️⃣ Event Loop: Microtask vs Macrotask
 
 ```
 console.log("start");
@@ -72,22 +72,21 @@ timeout
 
 Why?
 
-*   Synchronous first
-*   Microtasks (Promise)
-*   Macrotasks (setTimeout)
+- Synchronous first
+- Microtasks (Promise)
+- Macrotasks (setTimeout)
 
 📌 They’re testing:
 
-*   Call stack
-*   Microtask queue priority
-*   Render cycle knowledge
+- Call stack
+- Microtask queue priority
+- Render cycle knowledge
 
 If this isn’t instant for you — fix that first.
 
-* * *
+---
 
-3️⃣ `this` Binding Traps
-------------------------
+## 3️⃣ `this` Binding Traps
 
 ```
 const obj = {
@@ -105,8 +104,8 @@ Output → `undefined` (in strict mode)
 
 Why?
 
-*   `this` depends on call site.
-*   Function extracted → global context.
+- `this` depends on call site.
+- Function extracted → global context.
 
 Fix:
 
@@ -116,14 +115,13 @@ const fn = obj.getName.bind(obj);
 
 📌 Testing:
 
-*   Execution context
-*   `bind`, `call`, `apply`
-*   Arrow vs normal functions
+- Execution context
+- `bind`, `call`, `apply`
+- Arrow vs normal functions
 
-* * *
+---
 
-4️⃣ Hoisting Edge Case
-----------------------
+## 4️⃣ Hoisting Edge Case
 
 ```
 console.log(a);
@@ -143,13 +141,12 @@ let b = 10;
 
 📌 Testing:
 
-*   Temporal Dead Zone
-*   Declaration vs initialization
+- Temporal Dead Zone
+- Declaration vs initialization
 
-* * *
+---
 
-5️⃣ Equality Trap
------------------
+## 5️⃣ Equality Trap
 
 ```
 [] == ![]
@@ -159,21 +156,20 @@ Output → `true`
 
 Why?
 
-*   `![]` → false
-*   `[] == false`
-*   Type coercion → `[]` → "" → 0
-*   `0 == 0`
+- `![]` → false
+- `[] == false`
+- Type coercion → `[]` → "" → 0
+- `0 == 0`
 
 📌 Testing:
 
-*   Abstract equality algorithm
+- Abstract equality algorithm
 
 If you can’t explain step-by-step coercion, interviewers push deeper.
 
-* * *
+---
 
-6️⃣ Prototypal Inheritance
---------------------------
+## 6️⃣ Prototypal Inheritance
 
 ```
 function Person(name) {
@@ -190,15 +186,14 @@ p.sayHi();
 
 Know:
 
-*   Where `sayHi` lives?
-*   How lookup works?
-*   `__proto__` vs `prototype`
-*   Difference between class sugar and constructor functions
+- Where `sayHi` lives?
+- How lookup works?
+- `__proto__` vs `prototype`
+- Difference between class sugar and constructor functions
 
-* * *
+---
 
-7️⃣ Promise Chain Behavior
---------------------------
+## 7️⃣ Promise Chain Behavior
 
 ```
 Promise.resolve(1)
@@ -212,13 +207,12 @@ Output → `100`
 
 They check:
 
-*   Error propagation
-*   Promise state transitions
+- Error propagation
+- Promise state transitions
 
-* * *
+---
 
-8️⃣ Debounce Implementation
----------------------------
+## 8️⃣ Debounce Implementation
 
 Common ask:
 
@@ -236,14 +230,13 @@ function debounce(fn, delay) {
 
 You must explain:
 
-*   Closure usage
-*   Why `apply`
-*   Memory implications
+- Closure usage
+- Why `apply`
+- Memory implications
 
-* * *
+---
 
-9️⃣ Deep vs Shallow Copy
-------------------------
+## 9️⃣ Deep vs Shallow Copy
 
 ```
 const obj = { a: { b: 1 } };
@@ -256,66 +249,7 @@ Output → `5`
 
 Understand:
 
-*   Spread is shallow
-*   structuredClone vs JSON stringify vs manual recursion
-
-* * *
-
-🔟 Array Method Edge Case
--------------------------
-
-```
-[1,2,3].map(parseInt)
-```
-
-Output → `[1, NaN, NaN]`
-
-Why?
-
-*   `map` passes (value, index)
-*   parseInt(value, radix)
-
-* * *
-
-🔥 If You Want Agoda-Level Depth
-================================
-
-Expect:
-
-*   Implement `Promise.all`
-*   Polyfill `bind`
-*   Flatten nested array
-*   Implement `throttle`
-*   Write LRU cache
-*   Event emitter
-*   Currying
-*   Compose / pipe
-*   Deep clone
-
-These separate mid-level from senior.
-
-* * *
-
-Strategic Advice for You
-========================
-
-You already have strong full-stack experience. Your risk isn’t basics — it’s **speed + precision under pressure**.
-
-### Do this:
-
-1.  Practice explaining each snippet out loud.
-2.  Write polyfills without looking.
-3.  Simulate “what if we scale this to 10k calls/sec?”
-
-If you want, I can:
-
-*   Run a rapid-fire snippet drill.
-*   Give you 30-min Agoda-style mock.
-*   Or rank what to master first based on your timeline.
-
-What’s your interview timeline right now?
-
-
+- Spread is shallow
+- structuredClone vs JSON stringify vs manual recursion
 
 ---
-Powered by [ChatGPT Exporter](https://www.chatgptexporter.com)

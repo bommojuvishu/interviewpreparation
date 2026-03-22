@@ -3,6 +3,18 @@
 _What is the difference between a controlled and uncontrolled component in React.js?_
 a controlled component refers to a component whose state is controlled by the parent component through props and callbacks, while an uncontrolled component refers to a component that manages its own state internally.
 
+#### checkbox
+
+```js
+ <input type='checkbox' onClick={(e)=>clickhandler(e, item)} />  {item}</span>
+```
+
+```js
+const clickhandler = (e, item) => {
+  console.log(e.target.checked, item);
+};
+```
+
 ### lifecycle of reactjs
 
 1. componentWillMount: Invoked just before a component is mounted to the DOM.
@@ -209,7 +221,7 @@ function reducer(state, action) {
       return state.map((todo) =>
         todo.id === action.payload
           ? { ...todo, completed: !todo.completed }
-          : todo
+          : todo,
       );
     default:
       return state;
@@ -277,7 +289,7 @@ import { Suspense } from "react";
 
 function FetchData() {
   const data = fetch("https://jsonplaceholder.typicode.com/posts/1").then(
-    (res) => res.json()
+    (res) => res.json(),
   );
 
   return <pre>{JSON.stringify(data, null, 2)}</pre>;
@@ -510,7 +522,7 @@ export default function Multiple() {
   const handleSubmit = (event) => {
     event.preventDefault();
     alert(
-      `Name: ${formData.name}, Email: ${formData.email}, Message: ${formData.message}`
+      `Name: ${formData.name}, Email: ${formData.email}, Message: ${formData.message}`,
     );
   };
 
@@ -592,7 +604,6 @@ export default connect(mapStateToProps)(MyComponent);
 React supports environment variables through the use of a file named `.env`
 
 1.  **Create a .env file:**
-
     - In the root of your React project, create a file named `.env`.
     - You can create environment variables in this file by following the format: `REACT_APP_VARIABLE_NAME=value`. Note that all environment variables in React must start with `REACT_APP_` to be recognized.
 
@@ -760,7 +771,7 @@ import React, { Suspense } from "react";
 // A mock API function to simulate data fetching
 const fetchData = () =>
   new Promise((resolve) =>
-    setTimeout(() => resolve({ message: "Hello, Suspense!" }), 2000)
+    setTimeout(() => resolve({ message: "Hello, Suspense!" }), 2000),
   );
 
 // Create a resource to fetch the data
@@ -775,7 +786,7 @@ const createResource = (promise) => {
     (err) => {
       status = "error";
       result = err;
-    }
+    },
   );
 
   return {

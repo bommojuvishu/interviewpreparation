@@ -23,6 +23,37 @@ if (obj.hasOwnProperty("name")) {
 }
 ```
 
+#### Deep Clone
+
+```js
+/**
+ * @template T
+ * @param {T} value
+ * @return {T}
+ */
+export default function deepClone(value) {
+  // 1. Primitive values and null
+  if (value === null || typeof value !== "object") {
+    return value;
+  }
+
+  // 2. Arrays
+  if (Array.isArray(value)) {
+    return value.map((item) => deepClone(item));
+  }
+
+  // 3. Objects
+  const result = {};
+  for (const key in value) {
+    if (Object.prototype.hasOwnProperty.call(value, key)) {
+      result[key] = deepClone(value[key]);
+    }
+  }
+
+  return result;
+}
+```
+
 ---
 
 ## JS important points
@@ -161,7 +192,7 @@ const fruits = ["Banana", "Orange", "Apple", "Mango"];
 fruits.sort();
 ```
 
--JSON iterate
+- JSON iterate
 
 ```javascript
 const jsonObj = {
@@ -172,6 +203,19 @@ const jsonObj = {
 
 // Iterating over the keys using object.key syntax
 console.log(Object.keys(jsonObj));
+```
+
+#### JSON Using `hasOwnProperty()`
+
+```js
+const obj = {
+  name: "John",
+  age: 30,
+};
+
+if (obj.hasOwnProperty("name")) {
+  console.log("Key exists");
+}
 ```
 
 # String methods
